@@ -12,9 +12,9 @@
 
     .etiqueta {
       width: 80mm;
-      height: 50mm; /* REDUZIDO de 60mm para 50mm */
-      border: 1px solid black;
-      padding: 6px; /* REDUZIDO de 10px para 6px */
+      height: 55mm;
+      /* border: 1px solid black; */ /* Moldura removida */
+      padding: 6px;
       position: relative;
       box-sizing: border-box;
       display: flex;
@@ -37,7 +37,7 @@
       position: absolute;
       bottom: 6px;
       right: 6px;
-      width: 60px; /* ligeiramente menor */
+      width: 60px;
       height: 60px;
     }
 
@@ -82,11 +82,9 @@
 
       const qr = params.get("qr");
       if (qr) {
-        const qrImg = document.getElementById("qrcode");
-        qrImg.src = decodeURIComponent(qr);
+        document.getElementById("qrcode").src = decodeURIComponent(qr);
       }
     }
   </script>
 </body>
 </html>
-
