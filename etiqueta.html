@@ -27,4 +27,24 @@
     <p><strong>Descrição:</strong> <span id="descricao"></span></p>
     <p><strong>Lote:</strong> <span id="lote"></span></p>
     <p><strong>Peso:</strong> <span id="peso"></span></p>
-    <i
+    <img id="qrcode" src="" alt="QR Code" width="100" height="100" />
+  </div>
+
+  <script>
+    function carregarEtiqueta() {
+      const params = new URLSearchParams(window.location.search);
+      document.getElementById("codigo").innerText = params.get("codigo") || "";
+      document.getElementById("descricao").innerText = params.get("descricao") || "";
+      document.getElementById("lote").innerText = params.get("lote") || "";
+      document.getElementById("peso").innerText = params.get("peso") || "";
+
+      const qr = params.get("qr");
+      if (qr) {
+        document.getElementById("qrcode").src = decodeURIComponent(qr);
+      }
+
+      window.print();
+    }
+  </script>
+</body>
+</html>
