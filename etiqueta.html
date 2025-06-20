@@ -9,50 +9,52 @@
       margin: 0;
       padding: 10px;
     }
+
     .etiqueta {
       width: 80mm;
-      height: 60mm;
+      height: 50mm; /* REDUZIDO de 60mm para 50mm */
       border: 1px solid black;
-      padding: 10px;
+      padding: 6px; /* REDUZIDO de 10px para 6px */
       position: relative;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
     }
+
     h3 {
       text-align: center;
-      margin: 0 0 10px 0;
+      margin: 0 0 8px 0;
       font-weight: bold;
-      font-size: 18px;
-    }
-    p {
-      margin: 4px 0;
-      font-size: 14px;
-    }
-    img#qrcode {
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-      width: 70px;
-      height: 70px;
-      margin: 0;
-    }
-    #btnImprimir {
-      margin-top: 15px;
-      padding: 8px 16px;
-      font-size: 14px;
-      cursor: pointer;
-      display: inline-block;
+      font-size: 16px;
     }
 
-    /* Configurações para impressão */
+    p {
+      margin: 2px 0;
+      font-size: 13px;
+    }
+
+    img#qrcode {
+      position: absolute;
+      bottom: 6px;
+      right: 6px;
+      width: 60px; /* ligeiramente menor */
+      height: 60px;
+    }
+
+    #btnImprimir {
+      margin-bottom: 15px;
+      padding: 6px 14px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
     @media print {
       #btnImprimir {
-        display: none; /* Esconde o botão ao imprimir */
+        display: none;
       }
       @page {
         size: landscape;
-        margin: 3mm; /* margem ajustável */
+        margin: 3mm;
       }
     }
   </style>
@@ -87,3 +89,4 @@
   </script>
 </body>
 </html>
+
