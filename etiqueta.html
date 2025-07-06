@@ -79,8 +79,9 @@
       const params = new URLSearchParams(window.location.search);
       document.getElementById("codigo").innerText = params.get("codigo") || "";
       document.getElementById("descricao").innerText = params.get("descricao") || "";
-      document.getElementById("lote").innerText = params.get("lote") || "";
-      document.getElementById("peso").innerText = params.get("peso") || "";
+      document.getElementById("pesobruto").innerText = params.get("pesobruto") || "";
+      document.getElementById("pesoliquido").innerText = params.get("pesoliquido") || "";
+      document.getElementById("dn").innerText = params.get("dn") || "";
 
       const qr = params.get("qr");
       if (qr) {
