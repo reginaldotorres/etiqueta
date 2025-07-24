@@ -7,17 +7,18 @@
     body {
       font-family: Arial, sans-serif;
       margin: 0;
-      padding: 10px;
+      padding: 0;
     }
 
     .etiqueta {
-      width: 100mm; /* Tamanho ajustado */
+      width: 100mm;
       height: 55mm;
       padding: 6px;
-      position: relative;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
+      border: 1px dashed #999; /* opcional, para ver os limites */
     }
 
     h3 {
@@ -27,21 +28,28 @@
       font-size: 18px;
     }
 
+    .info {
+      flex-grow: 1;
+    }
+
     p {
-      margin: 6px 0;
-      font-size: 15px;
-      line-height: 1.4;
+      margin: 4px 0;
+      font-size: 14px;
+      line-height: 1.3;
+    }
+
+    .qr-container {
+      display: flex;
+      justify-content: flex-end;
     }
 
     img#qrcode {
       width: 90px;
       height: 90px;
-      align-self: flex-end; /* Alinha à direita */
-      margin-top: auto;     /* Empurra para baixo */
     }
 
     #btnImprimir {
-      margin-bottom: 15px;
+      margin: 10px;
       padding: 6px 14px;
       font-size: 14px;
       cursor: pointer;
@@ -54,7 +62,7 @@
 
       @page {
         size: landscape;
-        margin: 3mm; /* Pode reduzir se a impressora permitir */
+        margin: 3mm;
       }
     }
   </style>
@@ -65,12 +73,18 @@
 
   <div class="etiqueta">
     <h3>Núcleo Ind. e Com. de Ferroligas</h3>
-    <p><strong>Código:</strong> <span id="codigo"></span></p>
-    <p><strong>Descrição:</strong> <span id="descricao"></span></p>
-    <p><strong>Peso Bruto:</strong> <span id="pesobruto"></span></p>
-    <p><strong>Peso Líquido:</strong> <span id="pesoliquido"></span></p>
-    <p><strong>DN:</strong> <span id="dn"></span></p>
-    <img id="qrcode" src="" alt="QR Code" />
+    
+    <div class="info">
+      <p><strong>Código:</strong> <span id="codigo"></span></p>
+      <p><strong>Descrição:</strong> <span id="descricao"></span></p>
+      <p><strong>Peso Bruto:</strong> <span id="pesobruto"></span></p>
+      <p><strong>Peso Líquido:</strong> <span id="pesoliquido"></span></p>
+      <p><strong>DN:</strong> <span id="dn"></span></p>
+    </div>
+
+    <div class="qr-container">
+      <img id="qrcode" src="" alt="QR Code" />
+    </div>
   </div>
 
   <script>
