@@ -66,6 +66,7 @@
 
   <div class="etiqueta">
     <h3>Núcleo Ind. e Com. de Ferroligas</h3>
+    <p><strong>PV:</strong> <span id="pv"></span><strong> - </strong><strong>OC:</strong> <span id="oc"></span></p>
     <p><strong>Parceiro:</strong> <span id="cod_parceiro"></span><strong> - </strong> <span id="parceiro"></span</p>
     <p><strong>Código:</strong> <span id="codigo"></span><strong> - </strong> <span id="descricao"></span</p>
 
@@ -78,6 +79,11 @@
   <script>
     function carregarEtiqueta() {
       const params = new URLSearchParams(window.location.search);
+      document.getElementById("pv").innerText = params.get("pv") || "";
+      document.getElementById("oc").innerText = params.get("oc") || "";
+      
+      document.getElementById("parceiro").innerText = params.get("parceiro") || "";
+      document.getElementById("parceiro").innerText = params.get("parceiro") || "";
       document.getElementById("cod_parceiro").innerText = params.get("cod_parceiro") || "";
       document.getElementById("parceiro").innerText = params.get("parceiro") || "";
       document.getElementById("codigo").innerText = params.get("codigo") || "";
