@@ -72,6 +72,7 @@
     <p><strong>Gran.:</strong> <span id="granulometria"></span></p>
     <p><strong>Peso Bruto:</strong> <span id="pesobruto"></span></p>
     <p><strong>Peso Líquido:</strong> <span id="pesoliquido"></span></p>
+    <p><strong>Fabricação:</strong> <span id="pvdata"></span></p>
     <p><strong>DN:</strong> <span id="dn"></span></p>
     <img id="qrcode" src="" alt="QR Code" />
   </div>
@@ -84,7 +85,7 @@
       
       document.getElementById("granulometria").innerText = params.get("granulometria") || "";
       
-      document.getElementById("parceiro").innerText = params.get("parceiro") || "";
+      document.getElementById("pvdata").innerText = params.get("pvdata") || "";
       
       document.getElementById("cod_parceiro").innerText = params.get("cod_parceiro") || "";
       document.getElementById("parceiro").innerText = params.get("parceiro") || "";
