@@ -1,26 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <title>Etiqueta</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 10px;
+      padding: 0;
+      font-family: Arial, sans-serif;
     }
-
+    
     .etiqueta {
-      width: 80mm;
-      height: 55mm;
-      /* border: 1px solid black; */ /* Moldura removida */
-      padding: 6px;
-      position: relative;
+      width: 160mm;
+      height: 100mm;
+      padding: 10mm;
       box-sizing: border-box;
+      position: relative;
       display: flex;
       flex-direction: column;
+      justify-content: flex-start;
     }
 
+    .topo-direita {
+      position: absolute;
+      top: 10mm;
+      right: 10mm;
+      text-align: right;
+      font-style: italic;
+      font-size: 16px;
+    }
+    .parceiro {
+      margin-top: 25mm;
+      font-style: italic;
+      font-size: 16px;
+    }
+
+    .info {
+      margin-top: 10mm;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .info p {
+      margin: 4px 0;
+    }
+
+    .info .subinfo {
+      font-style: italic;
+    }
+    
     h3 {
       text-align: center;
       margin: 0 0 10px 0;
