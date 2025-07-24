@@ -13,7 +13,6 @@
     .etiqueta {
       width: 200mm;
       height: 100mm;
-      /* border: 1px solid black; */ /* Moldura removida */
       padding: 6px;
       position: relative;
       box-sizing: border-box;
@@ -25,13 +24,13 @@
       text-align: center;
       margin: 0 0 10px 0;
       font-weight: bold;
-      font-size: 18px; /* Aumentado */
+      font-size: 18px;
     }
 
     p {
-      margin: 6px 0; /* Espaçamento entre linhas aumentado */
-      font-size: 15px; /* Fonte maior */
-      line-height: 1.4; /* Altura de linha melhorada */
+      margin: 6px 0;
+      font-size: 15px;
+      line-height: 1.4;
     }
 
     img#qrcode {
@@ -53,9 +52,21 @@
       #btnImprimir {
         display: none;
       }
+
       @page {
-        size: portrait;
-        margin: 3mm;
+        size: 200mm 100mm;
+        margin: 0;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      .etiqueta {
+        width: 200mm;
+        height: 100mm;
+        page-break-after: avoid;
       }
     }
   </style>
@@ -89,5 +100,7 @@
       }
     }
   </script>
+
 </body>
 </html>
+
