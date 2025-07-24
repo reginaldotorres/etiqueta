@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Etiqueta com QR</title>
+  <title>Etiqueta</title>
   <style>
     * {
       box-sizing: border-box;
@@ -17,7 +17,7 @@
     .etiqueta {
       width: 100mm;
       height: 55mm;
-      padding: 8px;
+      padding: 10px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -30,12 +30,11 @@
 
     .qr {
       text-align: right;
-      margin-top: auto;
     }
 
     .qr img {
-      width: 90px;
-      height: 90px;
+      width: 80px;
+      height: 80px;
     }
 
     #btnImprimir {
@@ -57,41 +56,24 @@
     }
   </style>
 </head>
-<body onload="carregarEtiqueta()">
+<body>
 
   <button id="btnImprimir" onclick="window.print()">Imprimir</button>
 
   <div class="etiqueta">
     <div class="info">
-      <div><strong>Código:</strong> <span id="codigo"></span></div>
-      <div><strong>Descrição:</strong> <span id="descricao"></span></div>
-      <div><strong>Peso Bruto:</strong> <span id="pesobruto"></span></div>
-      <div><strong>Peso Líquido:</strong> <span id="pesoliquido"></span></div>
-      <div><strong>DN:</strong> <span id="dn"></span></div>
+      <div><strong>Código:</strong> 123456</div>
+      <div><strong>Descrição:</strong> Produto Exemplo</div>
+      <div><strong>Peso Bruto:</strong> 10kg</div>
+      <div><strong>Peso Líquido:</strong> 9kg</div>
+      <div><strong>DN:</strong> 555</div>
     </div>
 
     <div class="qr">
-      <img id="qrcode" src="" alt="QR Code">
+      <!-- QR gerado como base64 para "123456" -->
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAABZxJREFUeJzt3UEOgjAQgFG9/89t+J3VkKCXVrSgnO38rh7AYBEkkkklmTK3We+B0VfnvmB8VqNPx6tFgAAAAAAAAAAAAAAwG8Rfxu6H+9Hi/0X9b6NfqWfb0L+xvxfNQehv9PZbwX1cPUbhb8UN0v++vd6kGdrBP1kL8P4T0W+J+kb1c9S+FjytQy6K9UeKP9z6q+FvQ/Zfwnt8K/dfW+GvXG9U+FXztRLoj1z6R6f4I/96z3VcHf+j7TvN9txvtuH1j+B+2x+b4C7q4/atflPtYf6/UXb8X2uzv+96vzyN0z7/x8JY3rsPbXXofp1w7L9yf7XgAAAAAAAAAAAAAAgNWk2gSwNWZ+8gAAAABJRU5ErkJggg==" alt="QR Code">
     </div>
   </div>
 
-  <script>
-    function carregarEtiqueta() {
-      const params = new URLSearchParams(window.location.search);
-      document.getElementById("codigo").textContent = params.get("codigo") || "";
-      document.getElementById("descricao").textContent = params.get("descricao") || "";
-      document.getElementById("pesobruto").textContent = params.get("pesobruto") || "";
-      document.getElementById("pesoliquido").textContent = params.get("pesoliquido") || "";
-      document.getElementById("dn").textContent = params.get("dn") || "";
-
-      const qr = params.get("qr");
-      if (qr) {
-        document.getElementById("qrcode").src = decodeURIComponent(qr);
-      } else {
-        // Se não tiver parâmetro, insere um QR genérico
-        document.getElementById("qrcode").src = "https://api.qrserver.com/v1/create-qr-code/?data=teste";
-      }
-    }
-  </script>
 </body>
 </html>
