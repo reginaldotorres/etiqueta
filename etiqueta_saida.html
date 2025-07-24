@@ -2,53 +2,45 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Etiqueta</title>
+  <title>Etiqueta QR</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
+      font-family: Arial, sans-serif;
     }
 
     .etiqueta {
       width: 100mm;
       height: 55mm;
-      padding: 6px;
-      box-sizing: border-box;
-      border: 1px dashed #ccc;
+      padding: 8px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-    }
-
-    h3 {
-      text-align: center;
-      margin: 0;
-      font-size: 18px;
+      border: 1px dashed #ccc;
     }
 
     .info {
-      flex-grow: 1;
-    }
-
-    p {
-      margin: 4px 0;
       font-size: 14px;
     }
 
-    .qr-container {
+    .qr {
       text-align: right;
     }
 
-    #qrcode {
+    .qr img {
       width: 90px;
       height: 90px;
     }
 
     #btnImprimir {
       margin: 10px;
-      padding: 6px 14px;
+      padding: 8px 14px;
       font-size: 14px;
+      cursor: pointer;
     }
 
     @media print {
@@ -68,40 +60,35 @@
   <button id="btnImprimir" onclick="window.print()">Imprimir</button>
 
   <div class="etiqueta">
-    <h3>Núcleo Ind. e Com. de Ferroligas</h3>
-
     <div class="info">
-      <p><strong>Código:</strong> <span id="codigo"></span></p>
-      <p><strong>Descrição:</strong> <span id="descricao"></span></p>
-      <p><strong>Peso Bruto:</strong> <span id="pesobruto"></span></p>
-      <p><strong>Peso Líquido:</strong> <span id="pesoliquido"></span></p>
-      <p><strong>DN:</strong> <span id="dn"></span></p>
+      <div><strong>Código:</strong> <span id="codigo"></span></div>
+      <div><strong>Descrição:</strong> <span id="descricao"></span></div>
+      <div><strong>Peso Bruto:</strong> <span id="pesobruto"></span></div>
+      <div><strong>Peso Líquido:</strong> <span id="pesoliquido"></span></div>
+      <div><strong>DN:</strong> <span id="dn"></span></div>
     </div>
 
-    <div class="qr-container">
-      <img id="qrcode" src="" alt="QR Code" />
+    <div class="qr">
+      <img id="qrcode" src="" alt="QR Code">
     </div>
   </div>
 
   <script>
     function carregarEtiqueta() {
       const params = new URLSearchParams(window.location.search);
-      document.getElementById("codigo").innerText = params.get("codigo") || "";
-      document.getElementById("descricao").innerText = params.get("descricao") || "";
-      document.getElementById("pesobruto").innerText = params.get("pesobruto") || "";
-      document.getElementById("pesoliquido").innerText = params.get("pesoliquido") || "";
-      document.getElementById("dn").innerText = params.get("dn") || "";
+      document.getElementById("codigo").textContent = params.get("codigo") || "";
+      document.getElementById("descricao").textContent = params.get("descricao") || "";
+      document.getElementById("pesobruto").textContent = params.get("pesobruto") || "";
+      document.getElementById("pesoliquido").textContent = params.get("pesoliquido") || "";
+      document.getElementById("dn").textContent = params.get("dn") || "";
 
       const qr = params.get("qr");
       if (qr) {
-        const url = decodeURIComponent(qr);
-        document.getElementById("qrcode").src = url;
+        document.getElementById("qrcode").src = decodeURIComponent(qr);
       } else {
-        // fallback QR (vazio)
         document.getElementById("qrcode").src = "https://via.placeholder.com/90";
       }
     }
   </script>
-
 </body>
 </html>
