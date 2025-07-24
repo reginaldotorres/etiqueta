@@ -66,6 +66,8 @@
 
   <div class="etiqueta">
     <h3>Núcleo Ind. e Com. de Ferroligas</h3>
+    <p><strong>Cód. Parceiro:</strong> <span id="cod_parceiro"></span></p>
+    <p><strong>Parceiro:</strong> <span id="parceiro"></span></p>
     <p><strong>Código:</strong> <span id="codigo"></span></p>
     <p><strong>Descrição:</strong> <span id="descricao"></span></p>
     <p><strong>Peso Bruto:</strong> <span id="pesobruto"></span></p>
@@ -77,7 +79,10 @@
   <script>
     function carregarEtiqueta() {
       const params = new URLSearchParams(window.location.search);
+      document.getElementById("cod_parceiro").innerText = params.get("cod_parceiro") || "";
+      document.getElementById("parceiro").innerText = params.get("parceiro") || "";
       document.getElementById("codigo").innerText = params.get("codigo") || "";
+      
       document.getElementById("descricao").innerText = params.get("descricao") || "";
       document.getElementById("pesobruto").innerText = params.get("pesobruto") || "";
       document.getElementById("pesoliquido").innerText = params.get("pesoliquido") || "";
