@@ -1,108 +1,78 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <title>Etiqueta</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 10px;
+      padding: 0;
+      font-family: Arial, sans-serif;
     }
 
     .etiqueta {
       width: 160mm;
       height: 100mm;
-      padding: 6px;
-      position: relative;
+      padding: 10mm;
       box-sizing: border-box;
+      position: relative;
       display: flex;
       flex-direction: column;
+      justify-content: flex-start;
     }
 
-    h3 {
-      text-align: center;
-      margin: 0 0 10px 0;
-      font-weight: bold;
-      font-size: 18px;
+    .topo-direita {
+      position: absolute;
+      top: 10mm;
+      right: 10mm;
+      text-align: right;
+      font-style: italic;
+      font-size: 16px;
     }
 
-    p {
-      margin: 6px 0;
-      font-size: 20px;
-      line-height: 1.0;
+    .parceiro {
+      margin-top: 25mm;
+      font-style: italic;
+      font-size: 16px;
     }
 
-img#qrcode {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  width: 100px;
-  height: 100px;
-  display: block !important;
-  print-color-adjust: exact;
-  -webkit-print-color-adjust: exact;
-}
-
-    #btnImprimir {
-      margin-bottom: 15px;
-      padding: 6px 14px;
-      font-size: 14px;
-      cursor: pointer;
+    .info {
+      margin-top: 10mm;
+      font-size: 16px;
+      line-height: 1.6;
     }
 
-    @media print {
-      #btnImprimir {
-        display: none;
-      }
+    .info p {
+      margin: 4px 0;
+    }
 
-      @page {
-        size: 160mm 100mm;
-        margin: 0;
-      }
-
-      body {
-        margin: 0;
-        padding: 0;
-      }
-
-      .etiqueta {
-      width: 160mm;
-      height: 100mm;
-      page-break-after: avoid;
-      margin-top: 40mm; /* Desce 50mm do topo */
-      }
+    .info .subinfo {
+      font-style: italic;
     }
   </style>
 </head>
-<body onload="carregarEtiqueta()">
-
-  <button id="btnImprimir" onclick="window.print()">Imprimir</button>
+<body>
 
   <div class="etiqueta">
-    <p><strong>Código:</strong> <span id="codigo"></span></p>
-    <p><strong>Descrição:</strong> <span id="descricao"></span></p>
-    <p><strong>Peso Bruto:</strong> <span id="pesobruto"></span></p>
-    <p><strong>Peso Líquido:</strong> <span id="pesoliquido"></span></p>
-    <p><strong>DN:</strong> <span id="dn"></span></p>
-    <img id="qrcode" src="" alt="QR Code" />
+    <div class="topo-direita">
+      <div><strong>Pedido de Compra:</strong></div>
+      <div><strong>Ordem de Compra:</strong></div>
+    </div>
+
+    <div class="parceiro">
+      <strong>Parceiro:</strong> <span id="parceiro">1234 - CLIENTE TESTE LTDA</span>
+    </div>
+
+    <div class="info">
+      <p><strong>Código:</strong> <span id="codigo"></span></p>
+      <p><strong>Descrição:</strong> <span id="descricao"></span></p>
+      <p><strong>Lote:</strong> <span id="lote"></span></p>
+      <p><strong>Peso bruto:</strong> <span id="pesobruto"></span></p>
+      <p><strong>Peso líquido:</strong> <span id="pesoliquido"></span></p>
+      <p><strong>Fabricação:</strong> <span id="fabricacao"></span></p>
+      <p class="subinfo"><strong>Validade:</strong> Indeterminado</p>
+    </div>
   </div>
-
-  <script>
-    function carregarEtiqueta() {
-      const params = new URLSearchParams(window.location.search);
-      document.getElementById("codigo").innerText = params.get("codigo") || "";
-      document.getElementById("descricao").innerText = params.get("descricao") || "";
-      document.getElementById("pesobruto").innerText = params.get("pesobruto") || "";
-      document.getElementById("pesoliquido").innerText = params.get("pesoliquido") || "";
-      document.getElementById("dn").innerText = params.get("dn") || "";
-
-      const qr = params.get("qr");
-      if (qr) {
-        document.getElementById("qrcode").src = decodeURIComponent(qr);
-      }
-    }
-  </script>
 
 </body>
 </html>
