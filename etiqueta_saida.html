@@ -11,8 +11,8 @@
     }
 
     .etiqueta {
-      width: 160mm;
-      height: 100mm;
+      width: 80mm;
+      height: 55mm;
       /* border: 1px solid black; */ /* Moldura removida */
       padding: 6px;
       position: relative;
@@ -65,7 +65,12 @@
   <button id="btnImprimir" onclick="window.print()">Imprimir</button>
 
   <div class="etiqueta">
+    <h3>Núcleo Ind. e Com. de Ferroligas</h3>
     <p><strong>Código:</strong> <span id="codigo"></span></p>
+    <p><strong>Descrição:</strong> <span id="descricao"></span></p>
+    <p><strong>Peso Bruto:</strong> <span id="pesobruto"></span></p>
+    <p><strong>Peso Líquido:</strong> <span id="pesoliquido"></span></p>
+    <p><strong>DN:</strong> <span id="dn"></span></p>
     <img id="qrcode" src="" alt="QR Code" />
   </div>
 
@@ -73,7 +78,9 @@
     function carregarEtiqueta() {
       const params = new URLSearchParams(window.location.search);
       document.getElementById("codigo").innerText = params.get("codigo") || "";
-
+      document.getElementById("descricao").innerText = params.get("descricao") || "";
+      document.getElementById("pesobruto").innerText = params.get("pesobruto") || "";
+      document.getElementById("pesoliquido").innerText = params.get("pesoliquido") || "";
       document.getElementById("dn").innerText = params.get("dn") || "";
 
       const qr = params.get("qr");
