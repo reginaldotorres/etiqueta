@@ -70,7 +70,6 @@
     <p><strong>Descrição:</strong> <span id="descricao"></span></p>
     <p><strong>Lote:</strong> <span id="lote"></span></p>
     <p><strong>Peso Líquido:</strong> <span id="pesoliquido"></span></p>
-    <p><strong>DN:</strong> <span id="dn"></span></p>
     <img id="qrcode" src="" alt="QR Code" />
   </div>
 
@@ -81,7 +80,7 @@
       document.getElementById("descricao").innerText = params.get("descricao") || "";
       document.getElementById("lote").innerText = params.get("lote") || "";
       document.getElementById("pesoliquido").innerText = params.get("pesoliquido") || "";
-      document.getElementById("dn").innerText = params.get("dn") || "";
+      
 
       const qr = params.get("qr");
       if (qr) {
@@ -91,4 +90,5 @@
   </script>
 </body>
 </html>
+
 
