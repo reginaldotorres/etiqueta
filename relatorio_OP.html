@@ -92,8 +92,8 @@ body {
 
     <div class="linha1">
         <div class="coluna">
-            <span class="label">Ordem Nº:</span>
-            <span class="valor" id="ordem"></span>
+            <span class="label">PA:</span>
+            <span class="valor" id="pa"></span>
         </div>
 
         <div class="coluna" style="text-align:center;">
@@ -136,6 +136,7 @@ if (dadosParam) {
             document.getElementById("status").innerText = registro.Status ?? "";
             document.getElementById("data").innerText = registro.Data ?? "";
             document.getElementById("semana").innerText = registro.Semana ?? "";
+            document.getElementById("pa").innerText = registro.PA ?? "";
         }
 
     } catch (erro) {
