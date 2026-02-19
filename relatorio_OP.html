@@ -82,24 +82,33 @@ body {
 
 <script>
 function getParametro(nome) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(nome);
+    const params = new URLSearchParams(window.location.search);
+    return params.get(nome);
 }
 
-// Pega JSON da URL
 let dadosParam = getParametro("dados");
 
 if (dadosParam) {
-    let dados = JSON.parse(decodeURIComponent(dadosParam));
 
-    // Como vem de collection, pega o primeiro registro
-    let registro = dados[0];
+    try {
 
-    document.getElementById("Ordem").textContent = registro.Ordem || "";
-    document.getElementById("status").textContent = registro.Status || "";
-    document.getElementById("data").textContent = registro.Data || "";
+        let dados = JSON.parse(dadosParam);
+
+        if (dados.length > 0) {
+
+            let registro = dados[0];
+
+            document.getElementById("ordem").innerText = registro.Ordem ?? "";
+            document.getElementById("status").innerText = registro.Status ?? "";
+            document.getElementById("data").innerText = registro.Data ?? "";
+        }
+
+    } catch (erro) {
+        console.error("Erro ao ler JSON:", erro);
+    }
 }
 </script>
+
 
 </body>
 </html>
