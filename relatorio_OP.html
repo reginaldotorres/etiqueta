@@ -36,6 +36,12 @@ body {
     margin-bottom: 12px;
     font-size: 12px;
 }
+    .linha1 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 12px;
+}
 
 .coluna {
     width: 32%;
@@ -61,6 +67,30 @@ body {
 <div class="info-container">
 
     <div class="linha">
+        <div class="coluna">
+            <span class="label">Ordem Nº:</span>
+            <span class="valor" id="ordem"></span>
+        </div>
+
+        <div class="coluna" style="text-align:center;">
+            <span class="label">Status OP:</span>
+            <span class="valor" id="status"></span>
+        </div>
+
+        <div class="coluna" style="text-align:right;">
+            <span class="label">Data:</span>
+            <span class="valor" id="data"></span>
+        </div>
+
+        <div class="coluna" style="text-align:right;">
+            <span class="label">Semana:</span>
+            <span class="valor" id="semana"></span>
+        </div>
+    </div>
+
+</div>
+
+    <div class="linha1">
         <div class="coluna">
             <span class="label">Ordem Nº:</span>
             <span class="valor" id="ordem"></span>
