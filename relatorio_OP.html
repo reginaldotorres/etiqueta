@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+an<!DOCTYPE html>
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
@@ -77,8 +77,8 @@ body {
         </div>
 
         <div class="coluna" style="text-align:right;">
-            <span class="label">PA:</span>
-            <span class="valor" id="pa"></span>
+            <span class="label">Semana:</span>
+            <span class="valor" id="semana"></span>
         </div>
     </div>
 
@@ -105,7 +105,7 @@ if (dadosParam) {
             document.getElementById("ordem").innerText = registro.Ordem ?? "";
             document.getElementById("status").innerText = registro.Status ?? "";
             document.getElementById("data").innerText = registro.Data ?? "";
-            document.getElementById("pa").innerText = registro.PA ?? "";
+            document.getElementById("semana").innerText = registro.Semana ?? "";
         }
 
     } catch (erro) {
