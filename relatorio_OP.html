@@ -17,7 +17,7 @@ body {
     color: #000;
 }
 
-/* TÍTULO PRINCIPAL */
+/* TÍTULO */
 .titulo {
     text-align: center;
     font-size: 32px;
@@ -26,7 +26,7 @@ body {
     margin-bottom: 40px;
 }
 
-/* BLOCO DE INFORMAÇÕES */
+/* BLOCO INFORMAÇÕES */
 .info-container {
     width: 100%;
 }
@@ -34,7 +34,7 @@ body {
 .linha {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     font-size: 14px;
 }
 
@@ -46,40 +46,60 @@ body {
     font-weight: bold;
 }
 
+.valor {
+    font-weight: normal;
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- TÍTULO CENTRAL -->
 <div class="titulo">
     ORDEM DE PRODUÇÃO
 </div>
 
-<!-- BLOCO DE INFORMAÇÕES -->
 <div class="info-container">
 
     <div class="linha">
         <div class="coluna">
             <span class="label">Ordem Nº:</span>
+            <span class="valor" id="ordem"></span>
         </div>
 
         <div class="coluna" style="text-align:center;">
             <span class="label">Status OP:</span>
+            <span class="valor" id="status"></span>
         </div>
 
         <div class="coluna" style="text-align:right;">
             <span class="label">Data:</span>
+            <span class="valor" id="data"></span>
         </div>
     </div>
 
 </div>
 
-</body>
-</html>
-</div>
+<script>
+function getParametro(nome) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(nome);
+}
 
-</div>
+// Pega JSON da URL
+let dadosParam = getParametro("dados");
+
+if (dadosParam) {
+    let dados = JSON.parse(decodeURIComponent(dadosParam));
+
+    // Como vem de collection, pega o primeiro registro
+    let registro = dados[0];
+
+    document.getElementById("ordem").textContent = registro.Ordem || "";
+    document.getElementById("status").textContent = registro.Status || "";
+    document.getElementById("data").textContent = registro.Data || "";
+}
+</script>
 
 </body>
 </html>
