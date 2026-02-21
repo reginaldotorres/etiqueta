@@ -17,6 +17,19 @@ body {
     margin: 0;
 }
 
+.botao-container {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.botao {
+    padding: 6px 12px;
+    font-size: 11px;
+    cursor: pointer;
+    border: 1px solid #000;
+    background-color: #f2f2f2;
+}
+
 .titulo {
     text-align: center;
     font-size: 18px;
@@ -68,6 +81,10 @@ th {
 </head>
 
 <body>
+
+<div class="botao-container">
+    <button class="botao" onclick="salvarPagina()">Salvar como</button>
+</div>
 
 <div class="titulo">
     RELATÓRIO ORDEM DE PRODUÇÃO
@@ -122,7 +139,6 @@ th {
     Data_Fabricacao: <span id="data_fabricacao"></span><br>
     Empresa: <span id="empresa"></span><br>
     Usuario: <span id="usuario"></span>
-    
 </div>
 
 </div>
@@ -132,6 +148,21 @@ th {
 function getParametro(nome) {
     const params = new URLSearchParams(window.location.search);
     return params.get(nome);
+}
+
+function salvarPagina() {
+    const conteudo = document.documentElement.outerHTML;
+    const blob = new Blob([conteudo], { type: "text/html" });
+    const url = URL.createObjectURL(blob);
+
+    const ordem = document.getElementById("ordem").innerText || "Relatorio";
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "Relatorio_OP_" + ordem + ".html";
+    a.click();
+
+    URL.revokeObjectURL(url);
 }
 
 let dadosParam = getParametro("dados");
@@ -171,7 +202,6 @@ if (dadosParam) {
 
                     let linha = "<tr>";
 
-                    // MP aparece apenas na primeira linha e ocupa várias linhas
                     if (index === 0) {
                         linha += `
                             <td rowspan="${totalLinhas}">${item.Codigo ?? ""}</td>
@@ -181,7 +211,6 @@ if (dadosParam) {
                         `;
                     }
 
-                    // Parte das UCs (normal)
                     linha += `
                         <td>${uc.Quantidade ?? ""}</td>
                         <td>${uc.UC ?? ""}</td>
@@ -206,6 +235,7 @@ if (dadosParam) {
 }
 
 </script>
+
 </body>
 </html>
 
