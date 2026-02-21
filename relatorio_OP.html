@@ -2,57 +2,64 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Ordem de Produção</title>
+<title>Relatório Ordem de Produção</title>
 
 <style>
+
 @page {
     size: A4;
-    margin: 20mm;
+    margin: 15mm;
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
     margin: 0;
-    padding: 0;
-    color: #000;
 }
 
-/* TÍTULO */
 .titulo {
-    text-align: left;
-    font-size: 26px;
-    font-weight: 600;
-    margin-bottom: 25px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 
-/* BLOCO INFORMAÇÕES */
-.info-container {
-    width: 100%;
+.box {
+    border: 1px solid #000;
+    padding: 10px;
+    margin-bottom: 15px;
 }
 
-.linha {
+.flex {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 12px;
-    font-size: 12px;
-}
-    .linha1 {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 12px;
-    font-size: 12px;
-}
-
-.coluna {
-    width: 32%;
+    margin-bottom: 6px;
 }
 
 .label {
     font-weight: bold;
 }
 
-.valor {
-    font-weight: normal;
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    border: 1px solid #000;
+    padding: 5px;
+    text-align: center;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+.total {
+    text-align: right;
+    font-weight: bold;
+    margin-top: 10px;
 }
 
 </style>
@@ -61,60 +68,50 @@ body {
 <body>
 
 <div class="titulo">
-    ORDEM DE PRODUÇÃO
+    RELATÓRIO ORDEM DE PRODUÇÃO
 </div>
 
-<div class="info-container">
-
-    <div class="linha">
-        <div class="coluna">
-            <span class="label">Ordem Nº:</span>
-            <span class="valor" id="ordem"></span>
-        </div>
-
-        <div class="coluna" style="text-align:center;">
-            <span class="label">Status OP:</span>
-            <span class="valor" id="status"></span>
-        </div>
-
-        <div class="coluna" style="text-align:right;">
-            <span class="label">Data:</span>
-            <span class="valor" id="data"></span>
-        </div>
-
-        <div class="coluna" style="text-align:right;">
-            <span class="label">Semana:</span>
-            <span class="valor" id="semana"></span>
-        </div>
+<div class="box">
+    <div class="flex">
+        <div><span class="label">Ordem:</span> <span id="ordem"></span></div>
+        <div><span class="label">Status:</span> <span id="status"></span></div>
+        <div><span class="label">Data:</span> <span id="data"></span></div>
+        <div><span class="label">Semana:</span> <span id="semana"></span></div>
     </div>
 
+    <div class="flex">
+        <div><span class="label">PA:</span> <span id="pa"></span></div>
+        <div><span class="label">Código:</span> <span id="codigo"></span></div>
+        <div><span class="label">Descrição:</span> <span id="descricao"></span></div>
+        <div><span class="label">Lote:</span> <span id="lote"></span></div>
+    </div>
 </div>
 
-    <div class="linha1">
-        <div class="coluna">
-            <span class="label">PA:</span>
-            <span class="valor" id="pa"></span>
-        </div>
+<div class="box">
+    <div class="label">Matérias-Primas Utilizadas</div>
 
-        <div class="coluna" style="text-align:center;">
-            <span class="label">Codigo:</span>
-            <span class="valor" id="codigo"></span>
-        </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Descrição</th>
+                <th>Lote</th>
+                <th>Quantidade</th>
+                <th>Saldo</th>
+                <th>Custo</th>
+            </tr>
+        </thead>
+        <tbody id="tabelaItens">
+        </tbody>
+    </table>
 
-        <div class="coluna" style="text-align:right;">
-            <span class="label">Descrição:</span>
-            <span class="valor" id="descricao"></span>
-        </div>
-
-        <div class="coluna" style="text-align:right;">
-            <span class="label">Lote:</span>
-            <span class="valor" id="lote"></span>
-        </div>
+    <div class="total">
+        Total MP: <span id="totalmp"></span>
     </div>
-
 </div>
 
 <script>
+
 function getParametro(nome) {
     const params = new URLSearchParams(window.location.search);
     return params.get(nome);
@@ -127,26 +124,51 @@ if (dadosParam) {
     try {
 
         let dados = JSON.parse(dadosParam);
+        let registro = dados[0];
 
-        if (dados.length > 0) {
+        let cab = registro.Cabecalho;
 
-            let registro = dados[0];
+        document.getElementById("ordem").innerText = cab.Ordem ?? "";
+        document.getElementById("status").innerText = cab.Status ?? "";
+        document.getElementById("data").innerText = cab.Data ?? "";
+        document.getElementById("semana").innerText = cab.Semana ?? "";
+        document.getElementById("pa").innerText = cab.PA ?? "";
+        document.getElementById("codigo").innerText = cab.Codigo ?? "";
+        document.getElementById("descricao").innerText = cab.Descricao ?? "";
+        document.getElementById("lote").innerText = cab.Lote ?? "";
+        document.getElementById("totalmp").innerText = cab.Total_MP ?? "";
 
-            document.getElementById("ordem").innerText = registro.Ordem ?? "";
-            document.getElementById("status").innerText = registro.Status ?? "";
-            document.getElementById("data").innerText = registro.Data ?? "";
-            document.getElementById("semana").innerText = registro.Semana ?? "";
-            document.getElementById("pa").innerText = registro.PA ?? "";
-            document.getElementById("codigo").innerText = registro.Codigo ?? "";
-            document.getElementById("descricao").innerText = registro.Descricao ?? "";
-            document.getElementById("lote").innerText = registro.Lote ?? "";
-        }
+        let tabela = document.getElementById("tabelaItens");
+
+        registro.Itens.forEach(item => {
+
+            if (item.Codigo) {
+
+                let linha = `
+                    <tr>
+                        <td>${item.Codigo}</td>
+                        <td>${item.Descricao}</td>
+                        <td>${item.Lote}</td>
+                        <td>${item.Quantidade}</td>
+                        <td>${item.Saldo}</td>
+                        <td>${item.Custo}</td>
+                    </tr>
+                `;
+
+                tabela.innerHTML += linha;
+            }
+
+        });
 
     } catch (erro) {
         console.error("Erro ao ler JSON:", erro);
     }
 }
+
 </script>
+
+</body>
+</html>
 
 
 </body>
