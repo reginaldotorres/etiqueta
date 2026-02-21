@@ -117,7 +117,7 @@ th {
 </table>
 
 <div class="total">
-Total MP: <span id="totalmp"></span>
+Custo_Formula: <span id="custo_formula"></span>
 </div>
 
 </div>
@@ -147,7 +147,7 @@ if (dadosParam) {
         document.getElementById("codigo").innerText = cab.Codigo ?? "";
         document.getElementById("descricao").innerText = cab.Descricao ?? "";
         document.getElementById("lote").innerText = cab.Lote ?? "";
-        document.getElementById("totalmp").innerText = cab.Total_MP ?? "";
+        document.getElementById("custo_formula").innerText = cab.Custo_Formula ?? "";
 
         let tabela = document.getElementById("tabelaItens");
         tabela.innerHTML = "";
