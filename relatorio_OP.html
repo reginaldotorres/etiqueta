@@ -151,6 +151,7 @@ if (dadosParam) {
         document.getElementById("totalmp").innerText = cab.Total_MP ?? "";
 
         let tabela = document.getElementById("tabelaItens");
+        tabela.innerHTML = "";
 
         // ====== ITENS ======
         registro.Itens.forEach(item => {
@@ -168,8 +169,8 @@ if (dadosParam) {
 
                         <td>${uc.Quantidade ?? ""}</td>
                         <td>${uc.UC ?? ""}</td>
-                        <td>${item.Codigo ?? ""}</td>
-                        <td>${item.Complemento ?? ""}</td>
+                        <td>${uc.CodigoPI ?? ""}</td>
+                        <td>${uc.Complemento ?? ""}</td>
                         <td>${uc.Lote ?? ""}</td>
                         <td>${uc.Quantidade ?? ""}</td>
                         <td>${uc.CMV ?? ""}</td>
@@ -180,6 +181,7 @@ if (dadosParam) {
 
                     tabela.innerHTML += linha;
                 });
+
             }
         });
 
@@ -189,7 +191,6 @@ if (dadosParam) {
 }
 
 </script>
-
 </body>
 </html>
 
