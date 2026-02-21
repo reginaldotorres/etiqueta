@@ -119,7 +119,10 @@ th {
 <div class="total">
     Custo_Formula: <span id="custo_formula"></span><br>
     Total_MP: <span id="total_mp"></span><br>
+    Data_Fabricacao: <span id="data_fabricacao"></span><br>
+    Empresa: <span id="empresa"></span><br>
     Usuario: <span id="usuario"></span>
+    
 </div>
 
 </div>
@@ -151,6 +154,8 @@ if (dadosParam) {
         document.getElementById("lote").innerText = cab.Lote ?? "";
         document.getElementById("custo_formula").innerText = cab.Custo_Formula ?? "";
         document.getElementById("total_mp").innerText = cab.Total_MP ?? "";
+        document.getElementById("data_fabricacao").innerText = cab.Data_Fabricacao ?? "";
+        document.getElementById("empresa").innerText = cab.Empresa ?? "";
         document.getElementById("usuario").innerText = cab.Usuario ?? "";
 
         let tabela = document.getElementById("tabelaItens");
