@@ -137,9 +137,9 @@ if (dadosParam) {
 
         let dados = JSON.parse(dadosParam);
         let registro = dados[0];
-
         let cab = registro.Cabecalho;
 
+        // ====== CABEÇALHO ======
         document.getElementById("ordem").innerText = cab.Ordem ?? "";
         document.getElementById("status").innerText = cab.Status ?? "";
         document.getElementById("data").innerText = cab.Data ?? "";
@@ -152,31 +152,35 @@ if (dadosParam) {
 
         let tabela = document.getElementById("tabelaItens");
 
+        // ====== ITENS ======
         registro.Itens.forEach(item => {
 
-            if (item.Codigo) {
+            if (item.Codigo && item.UCs) {
 
-                let linha = `
-                <tr>
-                    <td>${item.Codigo ?? ""}</td>
-                    <td>${item.Complemento ?? ""}</td>
-                    <td>${item.QtdFormula ?? ""}</td>
-                    <td>${item.Tolerancia ?? ""}</td>
-                    <td>${item.QtdAdd ?? ""}</td>
-                    <td>${item.UC ?? ""}</td>
-                    <td>${item.CodPI ?? ""}</td>
-                    <td>${item.ComplPI ?? ""}</td>
-                    <td>${item.Lote ?? ""}</td>
-                    <td>${item.QtdPI ?? ""}</td>
-                    <td>${item.CMV ?? ""}</td>
-                    <td>${item.Custo ?? ""}</td>
-                    <td>${item.Saldo ?? ""}</td>
-                </tr>
-                `;
+                item.UCs.forEach((uc, index) => {
 
-                tabela.innerHTML += linha;
+                    let linha = `
+                    <tr>
+                        <td>${index === 0 ? item.Codigo ?? "" : ""}</td>
+                        <td>${index === 0 ? item.Complemento ?? "" : ""}</td>
+                        <td>${index === 0 ? item.QtdFormula ?? "" : ""}</td>
+                        <td>${index === 0 ? item.Tolerancia ?? "" : ""}</td>
+
+                        <td>${uc.Quantidade ?? ""}</td>
+                        <td>${uc.UC ?? ""}</td>
+                        <td>${item.Codigo ?? ""}</td>
+                        <td>${item.Complemento ?? ""}</td>
+                        <td>${uc.Lote ?? ""}</td>
+                        <td>${uc.Quantidade ?? ""}</td>
+                        <td>${uc.CMV ?? ""}</td>
+                        <td>${uc.Custo ?? ""}</td>
+                        <td>${uc.Saldo ?? ""}</td>
+                    </tr>
+                    `;
+
+                    tabela.innerHTML += linha;
+                });
             }
-
         });
 
     } catch (erro) {
