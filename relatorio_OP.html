@@ -8,32 +8,32 @@
 
 @page {
     size: A4;
-    margin: 15mm;
+    margin: 12mm;
 }
 
 body {
     font-family: Arial, sans-serif;
-    font-size: 12px;
+    font-size: 10px;
     margin: 0;
 }
 
 .titulo {
     text-align: center;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .box {
     border: 1px solid #000;
-    padding: 10px;
-    margin-bottom: 15px;
+    padding: 8px;
+    margin-bottom: 12px;
 }
 
 .flex {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
 }
 
 .label {
@@ -43,23 +43,25 @@ body {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
+    margin-top: 8px;
 }
 
 th, td {
     border: 1px solid #000;
-    padding: 5px;
+    padding: 3px;
     text-align: center;
 }
 
 th {
-    background-color: #f0f0f0;
+    background-color: #eaeaea;
+    font-size: 9px;
 }
 
 .total {
     text-align: right;
     font-weight: bold;
-    margin-top: 10px;
+    margin-top: 8px;
+    font-size: 11px;
 }
 
 </style>
@@ -88,26 +90,36 @@ th {
 </div>
 
 <div class="box">
-    <div class="label">Matérias-Primas Utilizadas</div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Código</th>
-                <th>Descrição</th>
-                <th>Lote</th>
-                <th>Quantidade</th>
-                <th>Saldo</th>
-                <th>Custo</th>
-            </tr>
-        </thead>
-        <tbody id="tabelaItens">
-        </tbody>
-    </table>
+<div class="label">Matérias-Primas Utilizadas</div>
 
-    <div class="total">
-        Total MP: <span id="totalmp"></span>
-    </div>
+<table>
+<thead>
+<tr>
+<th>Código</th>
+<th>Complemento</th>
+<th>Qtd Fórmula</th>
+<th>Tolerância</th>
+<th>Qtd Add</th>
+<th>UC</th>
+<th>Cód PI</th>
+<th>Compl PI</th>
+<th>Lote</th>
+<th>Qtd PI</th>
+<th>CMV</th>
+<th>Custo</th>
+<th>Saldo</th>
+</tr>
+</thead>
+
+<tbody id="tabelaItens"></tbody>
+
+</table>
+
+<div class="total">
+Total MP: <span id="totalmp"></span>
+</div>
+
 </div>
 
 <script>
@@ -145,14 +157,21 @@ if (dadosParam) {
             if (item.Codigo) {
 
                 let linha = `
-                    <tr>
-                        <td>${item.Codigo}</td>
-                        <td>${item.Descricao}</td>
-                        <td>${item.Lote}</td>
-                        <td>${item.Quantidade}</td>
-                        <td>${item.Saldo}</td>
-                        <td>${item.Custo}</td>
-                    </tr>
+                <tr>
+                    <td>${item.Codigo ?? ""}</td>
+                    <td>${item.Complemento ?? ""}</td>
+                    <td>${item.QtdFormula ?? ""}</td>
+                    <td>${item.Tolerancia ?? ""}</td>
+                    <td>${item.QtdAdd ?? ""}</td>
+                    <td>${item.UC ?? ""}</td>
+                    <td>${item.CodPI ?? ""}</td>
+                    <td>${item.ComplPI ?? ""}</td>
+                    <td>${item.Lote ?? ""}</td>
+                    <td>${item.QtdPI ?? ""}</td>
+                    <td>${item.CMV ?? ""}</td>
+                    <td>${item.Custo ?? ""}</td>
+                    <td>${item.Saldo ?? ""}</td>
+                </tr>
                 `;
 
                 tabela.innerHTML += linha;
