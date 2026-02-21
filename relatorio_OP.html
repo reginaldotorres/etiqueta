@@ -118,6 +118,8 @@ th {
 
 <div class="total">
 Custo_Formula: <span id="custo_formula"></span>
+Total_MP: <span id="total_mp></span>
+   
 </div>
 
 </div>
@@ -148,6 +150,7 @@ if (dadosParam) {
         document.getElementById("descricao").innerText = cab.Descricao ?? "";
         document.getElementById("lote").innerText = cab.Lote ?? "";
         document.getElementById("custo_formula").innerText = cab.Custo_Formula ?? "";
+        document.getElementById("total_mp").innerText = cab.Total_MP ?? "";
 
         let tabela = document.getElementById("tabelaItens");
         tabela.innerHTML = "";
