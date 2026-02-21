@@ -139,7 +139,6 @@ if (dadosParam) {
         let registro = dados[0];
         let cab = registro.Cabecalho;
 
-        // ====== CABEÇALHO ======
         document.getElementById("ordem").innerText = cab.Ordem ?? "";
         document.getElementById("status").innerText = cab.Status ?? "";
         document.getElementById("data").innerText = cab.Data ?? "";
@@ -153,20 +152,28 @@ if (dadosParam) {
         let tabela = document.getElementById("tabelaItens");
         tabela.innerHTML = "";
 
-        // ====== ITENS ======
         registro.Itens.forEach(item => {
 
-            if (item.Codigo && item.UCs) {
+            if (item.Codigo && item.UCs && item.UCs.length > 0) {
+
+                let totalLinhas = item.UCs.length;
 
                 item.UCs.forEach((uc, index) => {
 
-                    let linha = `
-                    <tr>
-                        <td>${index === 0 ? item.Codigo ?? "" : ""}</td>
-                        <td>${index === 0 ? item.Complemento ?? "" : ""}</td>
-                        <td>${index === 0 ? item.QtdFormula ?? "" : ""}</td>
-                        <td>${index === 0 ? item.Tolerancia ?? "" : ""}</td>
+                    let linha = "<tr>";
 
+                    // MP aparece apenas na primeira linha e ocupa várias linhas
+                    if (index === 0) {
+                        linha += `
+                            <td rowspan="${totalLinhas}">${item.Codigo ?? ""}</td>
+                            <td rowspan="${totalLinhas}">${item.Complemento ?? ""}</td>
+                            <td rowspan="${totalLinhas}">${item.QtdFormula ?? ""}</td>
+                            <td rowspan="${totalLinhas}">${item.Tolerancia ?? ""}</td>
+                        `;
+                    }
+
+                    // Parte das UCs (normal)
+                    linha += `
                         <td>${uc.Quantidade ?? ""}</td>
                         <td>${uc.UC ?? ""}</td>
                         <td>${uc.CodigoPI ?? ""}</td>
@@ -181,7 +188,6 @@ if (dadosParam) {
 
                     tabela.innerHTML += linha;
                 });
-
             }
         });
 
