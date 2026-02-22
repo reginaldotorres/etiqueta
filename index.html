@@ -32,6 +32,17 @@ body {
     font-weight: bold;
     margin-bottom: 15px;
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #000;
+    padding: 4px;
+    text-align: center;
+}
 </style>
 </head>
 
@@ -42,43 +53,75 @@ body {
 </div>
 
 <div class="titulo">
-    RELATÓRIO ORDEM DE PRODUÇÃO
+    ORDEM DE PRODUÇÃO
 </div>
+
+<div id="conteudo"></div>
 
 <script>
 
-// 🔹 força abrir como popup
+// 🔹 abre como popup se não for
 if (window.opener == null) {
     window.open(window.location.href, "Relatorio",
         "width=1100,height=850,toolbar=no,menubar=no,scrollbars=yes,resizable=yes");
     window.close();
 }
 
-// 🔹 bloqueia fechamento acidental
+// 🔹 bloqueia saída
 window.onbeforeunload = function () {
-    return "Você precisa salvar o relatório antes de fechar.";
+    return "Você precisa salvar antes de sair.";
 };
 
-// 🔹 função salvar + fechar
+// 🔹 pega dados do Power Apps
+const params = new URLSearchParams(window.location.search);
+const dadosString = params.get("dados");
+
+if (dadosString) {
+
+    const dados = JSON.parse(decodeURIComponent(dadosString));
+
+    let html = "<table>";
+    html += `
+        <tr>
+            <th>Código</th>
+            <th>Complemento</th>
+            <th>Qtd Fórmula</th>
+            <th>Tolerância</th>
+        </tr>
+    `;
+
+    dados.forEach(linha => {
+
+        html += `
+            <tr>
+                <td>${linha.Codigo ?? ""}</td>
+                <td>${linha.Complemento ?? ""}</td>
+                <td>${linha.QtdFormula ?? ""}</td>
+                <td>${linha.Tolerancia ?? ""}</td>
+            </tr>
+        `;
+    });
+
+    html += "</table>";
+
+    document.getElementById("conteudo").innerHTML = html;
+}
+
+// 🔹 salvar e fechar
 function salvarEFechar() {
 
     const conteudo = document.documentElement.outerHTML;
     const blob = new Blob([conteudo], { type: "text/html" });
     const url = URL.createObjectURL(blob);
 
-    const ordem = "OP";
-
     const a = document.createElement("a");
     a.href = url;
-    a.download = "Relatorio_OP_" + ordem + ".html";
+    a.download = "Relatorio_OP.html";
     a.click();
 
     URL.revokeObjectURL(url);
 
-    // remove bloqueio
     window.onbeforeunload = null;
-
-    // fecha popup
     window.close();
 }
 
