@@ -1,130 +1,21 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>Relatório Ordem de Produção</title>
-
-<style>
-@page { size: A4; margin: 12mm; }
-
-body {
-    font-family: Arial, sans-serif;
-    font-size: 10px;
-    margin: 0;
-}
-
-.botao-container {
-    text-align: right;
-    margin-bottom: 10px;
-}
-
-.botao {
-    padding: 6px 12px;
-    font-size: 11px;
-    cursor: pointer;
-    border: 1px solid #000;
-    background-color: #f2f2f2;
-}
-
-.titulo {
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th, td {
-    border: 1px solid #000;
-    padding: 4px;
-    text-align: center;
-}
-</style>
+<title>Launcher</title>
 </head>
-
 <body>
 
-<div class="botao-container">
-    <button class="botao" onclick="salvarEFechar()">Salvar e Fechar</button>
-</div>
-
-<div class="titulo">
-    ORDEM DE PRODUÇÃO
-</div>
-
-<div id="conteudo"></div>
-
 <script>
+const params = window.location.search;
 
-// 🔹 abre como popup se não for
-if (window.opener == null) {
-    window.open(window.location.href, "Relatorio",
-        "width=1100,height=850,toolbar=no,menubar=no,scrollbars=yes,resizable=yes");
-    window.close();
-}
+window.open(
+    "relatorio_OP.html" + params,
+    "Relatorio",
+    "width=1100,height=850,toolbar=no,menubar=no,scrollbars=yes,resizable=yes"
+);
 
-// 🔹 bloqueia saída
-window.onbeforeunload = function () {
-    return "Você precisa salvar antes de sair.";
-};
-
-// 🔹 pega dados do Power Apps
-const params = new URLSearchParams(window.location.search);
-const dadosString = params.get("dados");
-
-if (dadosString) {
-
-    const dados = JSON.parse(decodeURIComponent(dadosString));
-
-    let html = "<table>";
-    html += `
-        <tr>
-            <th>Código</th>
-            <th>Complemento</th>
-            <th>Qtd Fórmula</th>
-            <th>Tolerância</th>
-        </tr>
-    `;
-
-    dados.forEach(linha => {
-
-        html += `
-            <tr>
-                <td>${linha.Codigo ?? ""}</td>
-                <td>${linha.Complemento ?? ""}</td>
-                <td>${linha.QtdFormula ?? ""}</td>
-                <td>${linha.Tolerancia ?? ""}</td>
-            </tr>
-        `;
-    });
-
-    html += "</table>";
-
-    document.getElementById("conteudo").innerHTML = html;
-}
-
-// 🔹 salvar e fechar
-function salvarEFechar() {
-
-    const conteudo = document.documentElement.outerHTML;
-    const blob = new Blob([conteudo], { type: "text/html" });
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "Relatorio_OP.html";
-    a.click();
-
-    URL.revokeObjectURL(url);
-
-    window.onbeforeunload = null;
-    window.close();
-}
-
+window.close();
 </script>
 
 </body>
