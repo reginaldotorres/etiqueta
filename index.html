@@ -121,7 +121,8 @@ let totalQuantidade = 0;
 
 dados.forEach(item => {
 
-totalQuantidade += Number(item.Quantidade) || 0;
+document.getElementById("total").textContent =
+totalQuantidade.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
 let linha = `
 <tr>
