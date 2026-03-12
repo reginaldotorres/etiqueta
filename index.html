@@ -26,10 +26,23 @@ d.data = d.Criado || d.Created || null;
 dados.sort((a,b)=> new Date(a.data) - new Date(b.data));
 
 function formatarData(data){
+
 if(!data) return "";
-const d = new Date(data);
-if(isNaN(d)) return data;
+
+// formato SharePoint /Date(1710268954000)/
+if(typeof data === "string" && data.includes("Date")){
+const timestamp = parseInt(data.replace(/[^0-9]/g,""));
+const d = new Date(timestamp);
 return d.toLocaleString("pt-BR");
+}
+
+// formato ISO normal
+const d = new Date(data);
+
+if(isNaN(d)) return data;
+
+return d.toLocaleString("pt-BR");
+
 }
 
 // pegar início e término
