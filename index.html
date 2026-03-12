@@ -1,19 +1,92 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Launcher</title>
+<meta charset="utf-8">
+<title>Relatório de Estoque</title>
+
+<style>
+
+body{
+font-family: Arial;
+padding:20px;
+}
+
+h2{
+text-align:center;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+border:1px solid #000;
+padding:6px;
+font-size:12px;
+}
+
+th{
+background:#eee;
+}
+
+@media print{
+button{display:none;}
+}
+
+</style>
+
 </head>
-<body>
+
+<body onload="carregarRelatorio()">
+
+<button onclick="window.print()">Gerar PDF</button>
+
+<h2>Relatório de Estoque</h2>
+
+<table id="tabela">
+
+<thead>
+<tr>
+<th>Código</th>
+<th>Descrição</th>
+<th>Lote</th>
+<th>Quantidade</th>
+<th>Empresa</th>
+</tr>
+</thead>
+
+<tbody></tbody>
+
+</table>
 
 <script>
-const params = window.location.search;
 
-window.open(
-    "relatorio_OP.html" + params,
-    "Relatorio",
-    "width=1100,height=850,toolbar=no,menubar=no,scrollbars=yes,resizable=yes"
-);
+function carregarRelatorio(){
+
+const params = new URLSearchParams(window.location.search);
+const dados = JSON.parse(decodeURIComponent(params.get("dados")));
+
+const tbody = document.querySelector("#tabela tbody");
+
+dados.forEach(item => {
+
+let linha = `
+<tr>
+<td>${item.Codigo}</td>
+<td>${item.Descricao}</td>
+<td>${item.Lote}</td>
+<td>${item.Quantidade}</td>
+<td>${item.Empresa}</td>
+</tr>
+`;
+
+tbody.innerHTML += linha;
+
+});
+
+}
+
 </script>
 
 </body>
