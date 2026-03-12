@@ -65,6 +65,7 @@ button{display:none;}
 <span><strong>Inicio:</strong> <span id="inicio"></span></span>
 <span><strong>Termino:</strong> <span id="termino"></span></span>
 <span><strong>Total:</strong> <span id="total"></span></span>
+<span><strong>PesoPC:</strong> <span id="pesoPC"></span></span>
 </div>
 
 <table id="tabela">
@@ -104,6 +105,12 @@ document.getElementById("inicio").textContent = inicio || "";
 // TERMINO
 const termino = params.get("termino");
 document.getElementById("termino").textContent = termino || "";
+
+
+// TERMINO
+const pesoPC = params.get("pesoPC");
+document.getElementById("pesoPC").textContent = pesoPC || "";
+
 
 // DADOS
 const dados = JSON.parse(decodeURIComponent(params.get("dados")));
