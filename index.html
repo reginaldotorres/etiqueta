@@ -69,9 +69,15 @@ function carregarRelatorio(){
 
 const params = new URLSearchParams(window.location.search);
 
+// ORDEM
 const ordem = params.get("ordem");
 document.getElementById("ordem").textContent = ordem || "";
 
+// EMPRESA
+const empresa = params.get("empresa");
+document.getElementById("empresa").textContent = empresa || "";
+
+// DADOS
 const dados = JSON.parse(decodeURIComponent(params.get("dados")));
 
 const tbody = document.querySelector("#tabela tbody");
