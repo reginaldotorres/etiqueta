@@ -18,7 +18,6 @@ text-align:center;
 table{
 width:100%;
 border-collapse:collapse;
-margin-top:15px;
 }
 
 th,td{
@@ -46,21 +45,16 @@ button{display:none;}
 <h2>Ordem Produção de Entrada</h2>
 
 <p><strong>Ordem:</strong> <span id="ordem"></span></p>
-<p><strong>Início:</strong> <span id="inicio"></span></p>
-<p><strong>Término:</strong> <span id="termino"></span></p>
 
 <table id="tabela">
 
 <thead>
 <tr>
-<th>UC</th>
 <th>Código</th>
 <th>Descrição</th>
 <th>Lote</th>
 <th>Quantidade</th>
 <th>Empresa</th>
-<th>Depósito</th>
-<th>Criado</th>
 </tr>
 </thead>
 
@@ -70,74 +64,26 @@ button{display:none;}
 
 <script>
 
-function formatarData(data){
-
-if(!data) return "";
-
-// formato SharePoint /Date(1710268954000)/
-if(typeof data === "string" && data.includes("Date")){
-const timestamp = parseInt(data.replace(/[^0-9]/g,""));
-const d = new Date(timestamp);
-return d.toLocaleString("pt-BR");
-}
-
-// formato ISO normal
-const d = new Date(data);
-
-if(isNaN(d)) return data;
-
-return d.toLocaleString("pt-BR");
-
-}
-
 function carregarRelatorio(){
 
 const params = new URLSearchParams(window.location.search);
 
-// ORDEM
 const ordem = params.get("ordem");
 document.getElementById("ordem").textContent = ordem || "";
 
-// DADOS
-const dadosParam = params.get("dados");
+const dados = JSON.parse(decodeURIComponent(params.get("dados")));
 
-if(!dadosParam){
-console.log("Nenhum dado recebido");
-return;
-}
-
-const dados = JSON.parse(decodeURIComponent(dadosParam));
-
-// identificar campo de data
-dados.forEach(d=>{
-d.data = d.Criado || d.Created || d.Criado_x0020_em || null;
-});
-
-// ordenar pela data
-dados.sort((a,b)=> new Date(a.data) - new Date(b.data));
-
-// pegar início e término
-const inicio = dados[0]?.data;
-const termino = dados[dados.length-1]?.data;
-
-document.getElementById("inicio").textContent = formatarData(inicio);
-document.getElementById("termino").textContent = formatarData(termino);
-
-// montar tabela
 const tbody = document.querySelector("#tabela tbody");
 
 dados.forEach(item => {
 
 let linha = `
 <tr>
-<td>${item.UC || ""}</td>
-<td>${item.Codigo || ""}</td>
-<td>${item.Descricao || ""}</td>
-<td>${item.Lote || ""}</td>
-<td>${item.Quantidade || ""}</td>
-<td>${item.Empresa || ""}</td>
-<td>${item.Deposito || ""}</td>
-<td>${formatarData(item.data)}</td>
+<td>${item.Codigo}</td>
+<td>${item.Descricao}</td>
+<td>${item.Lote}</td>
+<td>${item.Quantidade}</td>
+<td>${item.Empresa}</td>
 </tr>
 `;
 
