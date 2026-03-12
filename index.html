@@ -38,12 +38,6 @@ th{
 background:#eee;
 }
 
-.total{
-margin-top:10px;
-font-weight:bold;
-font-size:14px;
-}
-
 @media print{
 button{display:none;}
 }
@@ -90,27 +84,12 @@ function carregarRelatorio(){
 
 const params = new URLSearchParams(window.location.search);
 
-// ORDEM
-const ordem = params.get("ordem");
-document.getElementById("ordem").textContent = ordem || "";
-
-// EMPRESA
-const empresa = params.get("empresa");
-document.getElementById("empresa").textContent = empresa || "";
-
-// INICIO
-const inicio = params.get("inicio");
-document.getElementById("inicio").textContent = inicio || "";
-
-// TERMINO
-const termino = params.get("termino");
-document.getElementById("termino").textContent = termino || "";
-
-
-// TERMINO
-const pesoPC = params.get("pesoPC");
-document.getElementById("pesoPC").textContent = pesoPC || "";
-
+// CAMPOS SUPERIORES
+document.getElementById("ordem").textContent = params.get("ordem") || "";
+document.getElementById("empresa").textContent = params.get("empresa") || "";
+document.getElementById("inicio").textContent = params.get("inicio") || "";
+document.getElementById("termino").textContent = params.get("termino") || "";
+document.getElementById("pesoPC").textContent = params.get("pesoPC") || "";
 
 // DADOS
 const dados = JSON.parse(decodeURIComponent(params.get("dados")));
@@ -139,25 +118,9 @@ tbody.innerHTML += linha;
 
 });
 
-// TOTAL
+// MOSTRAR TOTAL
 document.getElementById("total").textContent =
 totalQuantidade.toLocaleString('pt-BR',{minimumFractionDigits:2, maximumFractionDigits:2});
-let linha = `
-<tr>
-<td>${item.UC}</td>
-<td>${item.Codigo}</td>
-<td>${item.Descricao}</td>
-<td>${item.Lote}</td>
-<td>${item.Quantidade}</td>
-</tr>
-`;
-
-tbody.innerHTML += linha;
-
-});
-
-// MOSTRAR TOTAL
-document.getElementById("total").textContent = totalQuantidade;
 
 }
 
