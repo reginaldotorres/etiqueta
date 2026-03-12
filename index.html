@@ -20,6 +20,7 @@ text-align:center;
 display:flex;
 gap:60px;
 margin-bottom:10px;
+flex-wrap:wrap;
 }
 
 table{
@@ -60,6 +61,7 @@ button{display:none;}
 <span><strong>Termino:</strong> <span id="termino"></span></span>
 <span><strong>Total:</strong> <span id="total"></span></span>
 <span><strong>Peso PC:</strong> <span id="pesoPC"></span></span>
+<span><strong>Diferença:</strong> <span id="diferenca"></span></span>
 </div>
 
 <table id="tabela">
@@ -84,12 +86,20 @@ function carregarRelatorio(){
 
 const params = new URLSearchParams(window.location.search);
 
-// CAMPOS SUPERIORES
-document.getElementById("ordem").textContent = params.get("ordem") || "";
-document.getElementById("empresa").textContent = params.get("empresa") || "";
-document.getElementById("inicio").textContent = params.get("inicio") || "";
-document.getElementById("termino").textContent = params.get("termino") || "";
-document.getElementById("pesoPC").textContent = params.get("pesoPC") || "";
+// CAMPOS
+const ordem = params.get("ordem") || "";
+const empresa = params.get("empresa") || "";
+const inicio = params.get("inicio") || "";
+const termino = params.get("termino") || "";
+
+// PESO PC (converter para número)
+let pesoPC = params.get("pesoPC") || 0;
+pesoPC = parseFloat(String(pesoPC).replace(",", ".")) || 0;
+
+document.getElementById("ordem").textContent = ordem;
+document.getElementById("empresa").textContent = empresa;
+document.getElementById("inicio").textContent = inicio;
+document.getElementById("termino").textContent = termino;
 
 // DADOS
 const dados = JSON.parse(decodeURIComponent(params.get("dados")));
@@ -100,7 +110,7 @@ let totalQuantidade = 0;
 
 dados.forEach(item => {
 
-let qtd = parseFloat(item.Quantidade) || 0;
+let qtd = parseFloat(String(item.Quantidade).replace(",", ".")) || 0;
 
 totalQuantidade += qtd;
 
@@ -118,9 +128,18 @@ tbody.innerHTML += linha;
 
 });
 
-// MOSTRAR TOTAL
-document.getElementById("total").textContent =
-totalQuantidade.toLocaleString('pt-BR',{minimumFractionDigits:2, maximumFractionDigits:2});
+// FORMATAR NÚMEROS
+const totalFormatado = totalQuantidade.toLocaleString('pt-BR',{minimumFractionDigits:2, maximumFractionDigits:2});
+const pesoPCFormatado = pesoPC.toLocaleString('pt-BR',{minimumFractionDigits:2, maximumFractionDigits:2});
+
+// DIFERENÇA
+const diferenca = pesoPC - totalQuantidade;
+const diferencaFormatada = diferenca.toLocaleString('pt-BR',{minimumFractionDigits:2, maximumFractionDigits:2});
+
+// MOSTRAR
+document.getElementById("total").textContent = totalFormatado;
+document.getElementById("pesoPC").textContent = pesoPCFormatado;
+document.getElementById("diferenca").textContent = diferencaFormatada;
 
 }
 
