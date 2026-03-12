@@ -47,6 +47,7 @@ button{display:none;}
 <p><strong>Ordem:</strong> <span id="ordem"></span></p>
 <p><strong>Empresa:</strong> <span id="empresa"></span></p>
 <p><strong>Inicio:</strong> <span id="inicio"></span></p>
+<p><strong>Termino:</strong> <span id="termino"></span></p>
 
 <table id="tabela">
 
@@ -81,6 +82,8 @@ document.getElementById("empresa").textContent = empresa || "";
 // início
 const inicio = params.get("inicio");
 document.getElementById("inicio").textContent = inicio || "";
+const termino = params.get("termino");
+document.getElementById("termino").textContent = termino || "";
   
 
 // DADOS
