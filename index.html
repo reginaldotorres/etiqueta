@@ -46,6 +46,7 @@ button{display:none;}
 
 <p><strong>Ordem:</strong> <span id="ordem"></span></p>
 <p><strong>Empresa:</strong> <span id="empresa"></span></p>
+<p><strong>Inicio:</strong> <span id="inicio"></span></p>
 
 <table id="tabela">
 
@@ -76,6 +77,11 @@ document.getElementById("ordem").textContent = ordem || "";
 // EMPRESA
 const empresa = params.get("empresa");
 document.getElementById("empresa").textContent = empresa || "";
+
+// início
+const inicio = params.get("inicio");
+document.getElementById("inicio").textContent = inicio || "";
+  
 
 // DADOS
 const dados = JSON.parse(decodeURIComponent(params.get("dados")));
