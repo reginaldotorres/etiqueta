@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <title>OP de Entrada</title>
-<p><strong>Ordem:</strong> <span id="ordem"></span></p>
 
 <style>
 
@@ -45,6 +44,8 @@ button{display:none;}
 
 <h2>Relatório de Estoque</h2>
 
+<p><strong>Ordem:</strong> <span id="ordem"></span></p>
+
 <table id="tabela">
 
 <thead>
@@ -66,12 +67,11 @@ button{display:none;}
 function carregarRelatorio(){
 
 const params = new URLSearchParams(window.location.search);
-  
+
 const ordem = params.get("ordem");
 document.getElementById("ordem").textContent = ordem || "";
-  
+
 const dados = JSON.parse(decodeURIComponent(params.get("dados")));
-  
 
 const tbody = document.querySelector("#tabela tbody");
 
