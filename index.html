@@ -1,73 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>OP de Entrada</title>
-
-<style>
-
-body{
-font-family: Arial;
-padding:20px;
-}
-
-h2{
-text-align:center;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-}
-
-th,td{
-border:1px solid #000;
-padding:6px;
-font-size:12px;
-}
-
-th{
-background:#eee;
-}
-
-@media print{
-button{display:none;}
-}
-
-</style>
-
-</head>
-
-<body onload="carregarRelatorio()">
-
-<button onclick="window.print()">Gerar PDF</button>
-
-<h2>Ordem Produção de Entrada</h2>
-
-<p><strong>Ordem:</strong> <span id="ordem"></span></p>
-<p><strong>Início:</strong> <span id="inicio"></span></p>
-<p><strong>Término:</strong> <span id="termino"></span></p>
-  
-
-<table id="tabela">
-
-<thead>
-<tr>
-<th>UC</th>
-<th>Código</th>
-<th>Descrição</th>
-<th>Lote</th>
-<th>Quantidade</th>
-<th>Empresa</th>
-<th>Deposito</th>
-<th>Criado</th>
-</tr>
-</thead>
-
-<tbody></tbody>
-
-</table>
-
 <script>
 
 function carregarRelatorio(){
@@ -77,39 +7,53 @@ const params = new URLSearchParams(window.location.search);
 const ordem = params.get("ordem");
 document.getElementById("ordem").textContent = ordem || "";
 
-const dados = JSON.parse(decodeURIComponent(params.get("dados")));
+// pegar dados
+const dadosParam = params.get("dados");
 
+if(!dadosParam){
+console.log("Nenhum dado recebido");
+return;
+}
 
-// ordenar por data
-dados.sort((a,b) => new Date(a.Criado) - new Date(b.Criado));
+const dados = JSON.parse(decodeURIComponent(dadosParam));
 
-// pegar primeiro e último
-const inicio = dados[0].Criado;
-const termino = dados[dados.length - 1].Criado;
+// garantir que existe data
+dados.forEach(d=>{
+d.data = d.Criado || d.Created || null;
+});
 
-// formatar data
-document.getElementById("inicio").textContent =
-  new Date(inicio).toLocaleString();
+// ordenar pela data
+dados.sort((a,b)=> new Date(a.data) - new Date(b.data));
 
-document.getElementById("termino").textContent =
-  new Date(termino).toLocaleString();
+function formatarData(data){
+if(!data) return "";
+const d = new Date(data);
+if(isNaN(d)) return data;
+return d.toLocaleString("pt-BR");
+}
 
-  
+// pegar início e término
+const inicio = dados[0]?.data;
+const termino = dados[dados.length-1]?.data;
 
+document.getElementById("inicio").textContent = formatarData(inicio);
+document.getElementById("termino").textContent = formatarData(termino);
+
+// montar tabela
 const tbody = document.querySelector("#tabela tbody");
 
 dados.forEach(item => {
 
 let linha = `
 <tr>
-<td>${item.UC}</td>
-<td>${item.Codigo}</td>
-<td>${item.Descricao}</td>
-<td>${item.Lote}</td>
-<td>${item.Quantidade}</td>
-<td>${item.Empresa}</td>
-<td>${item.Deposito}</td>
-<td>${item.Criado}</td>
+<td>${item.UC || ""}</td>
+<td>${item.Codigo || ""}</td>
+<td>${item.Descricao || ""}</td>
+<td>${item.Lote || ""}</td>
+<td>${item.Quantidade || ""}</td>
+<td>${item.Empresa || ""}</td>
+<td>${item.Deposito || ""}</td>
+<td>${formatarData(item.data)}</td>
 </tr>
 `;
 
@@ -120,6 +64,3 @@ tbody.innerHTML += linha;
 }
 
 </script>
-
-</body>
-</html>
