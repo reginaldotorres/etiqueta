@@ -121,9 +121,27 @@ let totalQuantidade = 0;
 
 dados.forEach(item => {
 
-document.getElementById("total").textContent =
-totalQuantidade.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+let qtd = parseFloat(item.Quantidade) || 0;
 
+totalQuantidade += qtd;
+
+let linha = `
+<tr>
+<td>${item.UC}</td>
+<td>${item.Codigo}</td>
+<td>${item.Descricao}</td>
+<td>${item.Lote}</td>
+<td>${qtd.toLocaleString('pt-BR',{minimumFractionDigits:2, maximumFractionDigits:2})}</td>
+</tr>
+`;
+
+tbody.innerHTML += linha;
+
+});
+
+// TOTAL
+document.getElementById("total").textContent =
+totalQuantidade.toLocaleString('pt-BR',{minimumFractionDigits:2, maximumFractionDigits:2});
 let linha = `
 <tr>
 <td>${item.UC}</td>
