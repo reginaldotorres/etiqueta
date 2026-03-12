@@ -45,6 +45,9 @@ button{display:none;}
 <h2>Ordem Produção de Entrada</h2>
 
 <p><strong>Ordem:</strong> <span id="ordem"></span></p>
+<p><strong>Início:</strong> <span id="inicio"></span></p>
+<p><strong>Término:</strong> <span id="termino"></span></p>
+  
 
 <table id="tabela">
 
@@ -75,6 +78,23 @@ const ordem = params.get("ordem");
 document.getElementById("ordem").textContent = ordem || "";
 
 const dados = JSON.parse(decodeURIComponent(params.get("dados")));
+
+
+// ordenar por data
+dados.sort((a,b) => new Date(a.Criado) - new Date(b.Criado));
+
+// pegar primeiro e último
+const inicio = dados[0].Criado;
+const termino = dados[dados.length - 1].Criado;
+
+// formatar data
+document.getElementById("inicio").textContent =
+  new Date(inicio).toLocaleString();
+
+document.getElementById("termino").textContent =
+  new Date(termino).toLocaleString();
+
+  
 
 const tbody = document.querySelector("#tabela tbody");
 
