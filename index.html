@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="utf-8">
 <title>OP de Entrada</title>
 
@@ -15,9 +16,16 @@ h2{
 text-align:center;
 }
 
+.linha-info{
+display:flex;
+gap:60px;
+margin-bottom:10px;
+}
+
 table{
 width:100%;
 border-collapse:collapse;
+margin-top:15px;
 }
 
 th,td{
@@ -45,12 +53,12 @@ button{display:none;}
 <h2>Ordem Produção de Entrada</h2>
 
 <p><strong>Ordem:</strong> <span id="ordem"></span></p>
-<p><strong>Empresa:</strong> <span id="empresa"></span></p>
-<p>
-<strong>Inicio:</strong> <span id="inicio"></span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<strong>Termino:</strong> <span id="termino"></span>
-</p>
+
+<div class="linha-info">
+<span><strong>Empresa:</strong> <span id="empresa"></span></span>
+<span><strong>Inicio:</strong> <span id="inicio"></span></span>
+<span><strong>Termino:</strong> <span id="termino"></span></span>
+</div>
 
 <table id="tabela">
 
@@ -82,12 +90,13 @@ document.getElementById("ordem").textContent = ordem || "";
 const empresa = params.get("empresa");
 document.getElementById("empresa").textContent = empresa || "";
 
-// início
+// INICIO
 const inicio = params.get("inicio");
 document.getElementById("inicio").textContent = inicio || "";
+
+// TERMINO
 const termino = params.get("termino");
 document.getElementById("termino").textContent = termino || "";
-  
 
 // DADOS
 const dados = JSON.parse(decodeURIComponent(params.get("dados")));
