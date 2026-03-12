@@ -38,6 +38,12 @@ th{
 background:#eee;
 }
 
+.total{
+margin-top:10px;
+font-weight:bold;
+font-size:14px;
+}
+
 @media print{
 button{display:none;}
 }
@@ -58,6 +64,7 @@ button{display:none;}
 <span><strong>Empresa:</strong> <span id="empresa"></span></span>
 <span><strong>Inicio:</strong> <span id="inicio"></span></span>
 <span><strong>Termino:</strong> <span id="termino"></span></span>
+<span><strong>Total:</strong> <span id="total"></span></span>
 </div>
 
 <table id="tabela">
@@ -103,7 +110,11 @@ const dados = JSON.parse(decodeURIComponent(params.get("dados")));
 
 const tbody = document.querySelector("#tabela tbody");
 
+let totalQuantidade = 0;
+
 dados.forEach(item => {
+
+totalQuantidade += Number(item.Quantidade) || 0;
 
 let linha = `
 <tr>
@@ -118,6 +129,9 @@ let linha = `
 tbody.innerHTML += linha;
 
 });
+
+// MOSTRAR TOTAL
+document.getElementById("total").textContent = totalQuantidade;
 
 }
 
