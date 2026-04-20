@@ -32,22 +32,33 @@
       line-height: 1;
     }
 
-    /* QR esquerdo (UC) */
-    #qrcodeUC {
+    /* Container QR UC */
+    .qr-uc {
       position: absolute;
       bottom: 6px;
       left: 6px;
-      width: 80px;
-      height: 80px;
+      text-align: center;
     }
 
-    /* QR direito (principal) */
+    .qr-uc span {
+      font-size: 10px;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .qr-uc img {
+      width: 60px;
+      height: 60px;
+    }
+
+    /* QR principal */
     #qrcode1 {
       position: absolute;
       bottom: 6px;
       right: 6px;
-      width: 80px;
-      height: 80px;
+      width: 60px;
+      height: 60px;
     }
 
     #btnImprimir {
@@ -83,10 +94,13 @@
     <p><strong>Peso Líquido:</strong> <span id="pesoliquido"></span></p>
     <p><strong>UC:</strong> <span id="uc"></span></p>
 
-    <!-- QR esquerda (UC) -->
-    <img id="qrcodeUC" src="" alt="QR UC" />
+    <!-- QR UC com texto acima -->
+    <div class="qr-uc">
+      <span id="uc_text"></span>
+      <img id="qrcodeUC" src="" alt="QR UC" />
+    </div>
 
-    <!-- QR direita (principal) -->
+    <!-- QR principal -->
     <img id="qrcode1" src="" alt="QR Principal" />
 
   </div>
@@ -103,17 +117,19 @@
 
       const uc = params.get("uc") || "";
       document.getElementById("uc").innerText = uc;
+      document.getElementById("uc_text").innerText = uc;
 
-      // QR principal (produto)
+      // QR principal (mantido)
       const qr1 = params.get("qr");
       if (qr1) {
         document.getElementById("qrcode1").src = decodeURIComponent(qr1);
       }
 
-      // QR UC
+      // 🔴 QR da UC em vermelho
       if (uc) {
         document.getElementById("qrcodeUC").src =
-          "https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=" + encodeURIComponent(uc);
+          "https://api.qrserver.com/v1/create-qr-code/?size=120x120&color=255-0-0&data=" +
+          encodeURIComponent(uc);
       }
     }
   </script>
