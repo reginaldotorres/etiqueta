@@ -52,11 +52,10 @@
     }
 
     /* Código de barras */
-    img#barcode {
-      width: 100%;
-      height: 28px;
-      margin-top: auto;
-    }
+img#barcode {
+  width: 100%;
+  height: 40px;
+}
 
     /* QR Code */
     img#qrcode {
@@ -125,13 +124,14 @@
 
       // Código de barras
       if (uc) {
-        JsBarcode("#barcode", uc, {
-          format: "CODE128",
-          displayValue: false,
-          height: 28,
-          width: 1,
-          margin: 0
-        });
+JsBarcode("#barcode", uc, {
+  format: "CODE128",
+  displayValue: true,   // mostra número (ajuda leitura humana)
+  height: 40,           // 🔥 mais alto = melhor leitura
+  width: 2,             // 🔥 mais grosso = leitor enxerga melhor
+  margin: 10,           // 🔥 ESSENCIAL (quiet zone)
+  fontSize: 12
+});
       }
 
       // QR Code (mantido)
