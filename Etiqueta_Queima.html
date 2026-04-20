@@ -16,16 +16,107 @@
       height: 55mm;
       padding: 6px;
       box-sizing: border-box;
-      display: flex;
-      flex-direction: row;
+      position: relative;
     }
 
-    /* lado esquerdo */
-    .conteudo {
-      width: 65%;
-      display: flex;
-      flex-direction: column;
+    h3 {
+      text-align: center;
+      margin: 0 0 4px 0;
+      font-size: 14px;
+      font-weight: bold;
     }
 
-    /* lado direito (QRs) */
-    .qr-ar
+    p {
+      margin: 2px 0;
+      font-size: 12px;
+      line-height: 1;
+    }
+
+    /* QR esquerdo (UC) */
+    #qrcodeUC {
+      position: absolute;
+      bottom: 6px;
+      left: 6px;
+      width: 60px;
+      height: 60px;
+    }
+
+    /* QR direito (principal) */
+    #qrcode1 {
+      position: absolute;
+      bottom: 6px;
+      right: 6px;
+      width: 60px;
+      height: 60px;
+    }
+
+    #btnImprimir {
+      margin-bottom: 15px;
+      padding: 6px 14px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    @media print {
+      #btnImprimir {
+        display: none;
+      }
+      @page {
+        size: landscape;
+        margin: 3mm;
+      }
+    }
+  </style>
+</head>
+
+<body onload="carregarEtiqueta()">
+
+  <button id="btnImprimir" onclick="window.print()">Imprimir</button>
+
+  <div class="etiqueta">
+
+    <h3 id="empresa"></h3>
+
+    <p><strong>Código:</strong> <span id="codigo"></span></p>
+    <p><strong>Descrição:</strong> <span id="descricao"></span></p>
+    <p><strong>Lote:</strong> <span id="lote"></span></p>
+    <p><strong>Peso Líquido:</strong> <span id="pesoliquido"></span></p>
+    <p><strong>UC:</strong> <span id="uc"></span></p>
+
+    <!-- QR esquerda (UC) -->
+    <img id="qrcodeUC" src="" alt="QR UC" />
+
+    <!-- QR direita (principal) -->
+    <img id="qrcode1" src="" alt="QR Principal" />
+
+  </div>
+
+  <script>
+    function carregarEtiqueta() {
+      const params = new URLSearchParams(window.location.search);
+
+      document.getElementById("empresa").innerText = params.get("empresa") || "";
+      document.getElementById("codigo").innerText = params.get("codigo") || "";
+      document.getElementById("descricao").innerText = params.get("descricao") || "";
+      document.getElementById("lote").innerText = params.get("lote") || "";
+      document.getElementById("pesoliquido").innerText = params.get("pesoliquido") || "";
+
+      const uc = params.get("uc") || "";
+      document.getElementById("uc").innerText = uc;
+
+      // QR principal (produto)
+      const qr1 = params.get("qr");
+      if (qr1) {
+        document.getElementById("qrcode1").src = decodeURIComponent(qr1);
+      }
+
+      // QR UC
+      if (uc) {
+        document.getElementById("qrcodeUC").src =
+          "https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=" + encodeURIComponent(uc);
+      }
+    }
+  </script>
+
+</body>
+</html>
