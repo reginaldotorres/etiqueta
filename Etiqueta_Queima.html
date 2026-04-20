@@ -4,9 +4,6 @@
   <meta charset="utf-8">
   <title>Etiqueta</title>
 
-  <!-- Biblioteca código de barras -->
-  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
-
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -23,19 +20,20 @@
       flex-direction: row;
     }
 
-    /* LADO ESQUERDO */
+    /* lado esquerdo */
     .conteudo {
-      width: 70%;
+      width: 65%;
       display: flex;
       flex-direction: column;
     }
 
-    /* LADO DIREITO (QR) */
+    /* lado direito (QRs) */
     .qr-area {
-      width: 30%;
+      width: 35%;
       display: flex;
-      justify-content: center;
-      align-items: flex-end;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
     }
 
     h3 {
@@ -51,16 +49,10 @@
       line-height: 1;
     }
 
-    /* Código de barras */
-img#barcode {
-  width: 100%;
-  height: 40px;
-}
-
-    /* QR Code */
-    img#qrcode {
-      width: 65px;
-      height: 65px;
+    /* QR codes */
+    .qr-area img {
+      width: 60px;
+      height: 60px;
     }
 
     #btnImprimir {
@@ -88,7 +80,7 @@ img#barcode {
 
   <div class="etiqueta">
 
-    <!-- CONTEÚDO -->
+    <!-- TEXTO -->
     <div class="conteudo">
       <h3 id="empresa"></h3>
 
@@ -97,13 +89,12 @@ img#barcode {
       <p><strong>Lote:</strong> <span id="lote"></span></p>
       <p><strong>Peso Líquido:</strong> <span id="pesoliquido"></span></p>
       <p><strong>UC:</strong> <span id="uc"></span></p>
-
-      <img id="barcode" />
     </div>
 
-    <!-- QR CODE -->
+    <!-- QRs -->
     <div class="qr-area">
-      <img id="qrcode" src="" alt="QR Code" />
+      <img id="qrcode1" src="" alt="QR Principal" />
+      <img id="qrcodeUC" src="" alt="QR UC" />
     </div>
 
   </div>
@@ -118,26 +109,19 @@ img#barcode {
       document.getElementById("lote").innerText = params.get("lote") || "";
       document.getElementById("pesoliquido").innerText = params.get("pesoliquido") || "";
 
-      // UC
       const uc = params.get("uc") || "";
       document.getElementById("uc").innerText = uc;
 
-      // Código de barras
-      if (uc) {
-JsBarcode("#barcode", uc, {
-  format: "CODE128",
-  displayValue: true,   // mostra número (ajuda leitura humana)
-  height: 40,           // 🔥 mais alto = melhor leitura
-  width: 2,             // 🔥 mais grosso = leitor enxerga melhor
-  margin: 10,           // 🔥 ESSENCIAL (quiet zone)
-  fontSize: 12
-});
+      // QR principal (mantido)
+      const qr1 = params.get("qr");
+      if (qr1) {
+        document.getElementById("qrcode1").src = decodeURIComponent(qr1);
       }
 
-      // QR Code (mantido)
-      const qr = params.get("qr");
-      if (qr) {
-        document.getElementById("qrcode").src = decodeURIComponent(qr);
+      // 🔥 NOVO QR da UC
+      if (uc) {
+        document.getElementById("qrcodeUC").src =
+          "https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=" + encodeURIComponent(uc);
       }
     }
   </script>
