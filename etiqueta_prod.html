@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 <head>
   <meta charset="utf-8">
@@ -10,88 +11,136 @@
       padding: 10px;
     }
 
-    .etiqueta {
-      width: 80mm;
-      height: 55mm;
-      /* border: 1px solid black; */ /* Moldura removida */
-      padding: 6px;
-      position: relative;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-    }
+```
+.etiqueta {
+  width: 80mm;
+  height: 55mm;
+  padding: 6px;
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
 
-    h3 {
-      text-align: center;
-      margin: 0 0 10px 0;
-      font-weight: bold;
-      font-size: 18px; /* Aumentado */
-    }
+h3 {
+  text-align: center;
+  margin: 0 0 10px 0;
+  font-weight: bold;
+  font-size: 18px;
+}
 
-    p {
-      margin: 5px 0; /* Espaçamento entre linhas aumentado */
-      font-size: 15px; /* Fonte maior */
-      line-height: 1; /* Altura de linha melhorada */
-    }
+p {
+  margin: 5px 0;
+  font-size: 15px;
+  line-height: 1;
+}
 
-    img#qrcode {
-      position: absolute;
-      bottom: 6px;
-      right: 6px;
-      width: 90px;
-      height: 90px;
-    }
+.data-impressao {
+  font-size: 9px;
+  color: #555;
+  margin-top: 2px;
+}
 
-    #btnImprimir {
-      margin-bottom: 15px;
-      padding: 6px 14px;
-      font-size: 14px;
-      cursor: pointer;
-    }
+img#qrcode {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  width: 90px;
+  height: 90px;
+}
 
-    @media print {
-      #btnImprimir {
-        display: none;
-      }
-      @page {
-        size: landscape;
-        margin: 3mm;
-      }
-    }
+#btnImprimir {
+  margin-bottom: 15px;
+  padding: 6px 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+@media print {
+  #btnImprimir {
+    display: none;
+  }
+
+  @page {
+    size: landscape;
+    margin: 3mm;
+  }
+}
+```
+
   </style>
 </head>
+
 <body onload="carregarEtiqueta()">
 
-  <button id="btnImprimir" onclick="window.print()">Imprimir</button>
+<button id="btnImprimir" onclick="window.print()">Imprimir</button>
 
   <div class="etiqueta">
     <h3 id="empresa"></h3>
-    <p><strong>Código:</strong> <span id="codigo"></span></p>
-    <p><strong>Descrição:</strong> <span id="descricao"></span></p>
-    <p><strong>Lote:</strong> <span id="lote"></span></p>
-    <p><strong>Peso Líquido:</strong> <span id="pesoliquido"></span></p>
-    <p><strong>Tara:</strong> <span id="tara"></span></p>
-    <p><strong>OP:</strong> <span id="op"></span></p>
-    <img id="qrcode" src="" alt="QR Code" />
+
+```
+<p><strong>Código:</strong> <span id="codigo"></span></p>
+<p><strong>Descrição:</strong> <span id="descricao"></span></p>
+<p><strong>Lote:</strong> <span id="lote"></span></p>
+<p><strong>Peso Líquido:</strong> <span id="pesoliquido"></span></p>
+<p><strong>Tara:</strong> <span id="tara"></span></p>
+<p><strong>OP:</strong> <span id="op"></span></p>
+
+<p class="data-impressao">
+  Impressão: <span id="dataHora"></span>
+</p>
+
+<img id="qrcode" src="" alt="QR Code" />
+```
+
   </div>
 
   <script>
     function carregarEtiqueta() {
+
       const params = new URLSearchParams(window.location.search);
-      document.getElementById("empresa").innerText = params.get("empresa") || "";
-      document.getElementById("codigo").innerText = params.get("codigo") || "";
-      document.getElementById("descricao").innerText = params.get("descricao") || "";
-      document.getElementById("lote").innerText = params.get("lote") || "";
-      document.getElementById("pesoliquido").innerText = params.get("pesoliquido") || "";
-      document.getElementById("tara").innerText = params.get("tara") || "";
-      document.getElementById("op").innerText = params.get("op") || "";
-      
+
+      document.getElementById("empresa").innerText =
+        params.get("empresa") || "";
+
+      document.getElementById("codigo").innerText =
+        params.get("codigo") || "";
+
+      document.getElementById("descricao").innerText =
+        params.get("descricao") || "";
+
+      document.getElementById("lote").innerText =
+        params.get("lote") || "";
+
+      document.getElementById("pesoliquido").innerText =
+        params.get("pesoliquido") || "";
+
+      document.getElementById("tara").innerText =
+        params.get("tara") || "";
+
+      document.getElementById("op").innerText =
+        params.get("op") || "";
+
+      const agora = new Date();
+
+      document.getElementById("dataHora").innerText =
+        agora.toLocaleString("pt-BR", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit"
+        });
 
       const qr = params.get("qr");
+
       if (qr) {
-        document.getElementById("qrcode").src = decodeURIComponent(qr);
+        document.getElementById("qrcode").src =
+          decodeURIComponent(qr);
       }
     }
   </script>
+
 </body>
 </html>
+
