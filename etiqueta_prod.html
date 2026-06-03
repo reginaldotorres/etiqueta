@@ -80,8 +80,8 @@ img#qrcode {
 
 <p><strong>Código:</strong> <span id="codigo"></span></p>
 <p><strong>Descrição:</strong> <span id="descricao"></span></p>
-<p><strong>Lote:</strong> <span id="lote"></span></p>
 <p><strong>Peso Líquido:</strong> <span id="pesoliquido"></span></p>
+<p><strong>Lote:</strong> <span id="lote"></span></p>
 <p><strong>Tara:</strong> <span id="tara"></span></p>
 <p><strong>OP:</strong> <span id="op"></span></p>
 
@@ -107,11 +107,11 @@ img#qrcode {
       document.getElementById("descricao").innerText =
         params.get("descricao") || "";
 
-      document.getElementById("lote").innerText =
-        params.get("lote") || "";
-
       document.getElementById("pesoliquido").innerText =
-        params.get("pesoliquido") || "";
+      params.get("pesoliquido") || "";
+      
+      document.getElementById("lote").innerText =
+      params.get("lote") || "";
 
       document.getElementById("tara").innerText =
         params.get("tara") || "";
