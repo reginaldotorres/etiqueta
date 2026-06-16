@@ -123,6 +123,10 @@
         <strong>OP:</strong>
         <span id="op"></span>
     </p>
+    <p>
+        <strong>Localização:</strong>
+        <span id="localizacao"></span>
+    </p>
 <br>
     <p class="data-impressao">
         Impressão:
@@ -158,7 +162,9 @@
 
         document.getElementById("op").innerText =
             params.get("op") || "";
-
+        
+        document.getElementById("localizacao.innerText =
+            params.get("localizacao") || "";
         const agora = new Date();
 
         document.getElementById("dataHora").innerText =
