@@ -1,244 +1,190 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+
+<html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>Relatório Ordem de Produção</title>
+    <meta charset="utf-8">
+    <title>Etiqueta</title>
 
 <style>
-
-@page {
-    size: A4;
-    margin: 12mm;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    font-size: 10px;
-    margin: 0;
-}
-
-.botao-container {
-    text-align: right;
-    margin-bottom: 10px;
-}
-
-.botao {
-    padding: 6px 12px;
-    font-size: 11px;
-    cursor: pointer;
-    border: 1px solid #000;
-    background-color: #f2f2f2;
-}
-
-.titulo {
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 10px;
+    }
+    
+.empresa {
     text-align: center;
-    font-size: 18px;
+    margin: 0 0 8px 0;
     font-weight: bold;
-    margin-bottom: 15px;
+    font-size: 15px;
 }
+    
+    .etiqueta {
+        width: 80mm;
+        height: 55mm;
+        padding: 6px;
+        position: relative;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+    }
 
-.box {
-    border: 1px solid #000;
-    padding: 8px;
-    margin-bottom: 12px;
-}
+    h3 {
+        text-align: center;
+        margin: 0 0 8px 0;
+        font-weight: bold;
+        font-size: 15px;
+    }
 
-.flex {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 5px;
-}
+    p {
+        margin: 4px 0;
+        font-size: 13px;
+        line-height: 1.1;
+    }
 
-.label {
-    font-weight: bold;
-}
+    .linha-dupla {
+        display: flex;
+        gap: 15px;
+    }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 8px;
-}
+    .data-impressao {
+        font-size: 9px;
+        color: #555;
+        margin-top: 2px;
+    }
 
-th, td {
-    border: 1px solid #000;
-    padding: 3px;
-    text-align: center;
-}
+    #qrcode {
+        position: absolute;
+        top: 70px;
+        right: 6px;
+        width: 90px;
+        height: 90px;
+    }
 
-th {
-    background-color: #eaeaea;
-    font-size: 9px;
-}
+    #btnImprimir {
+        margin-bottom: 15px;
+        padding: 6px 14px;
+        font-size: 14px;
+        cursor: pointer;
+    }
 
-.total {
-    text-align: right;
-    font-weight: bold;
-    margin-top: 8px;
-    font-size: 11px;
-}
+    @media print {
+        #btnImprimir {
+            display: none;
+        }
 
+        @page {
+            size: landscape;
+            margin: 3mm;
+        }
+    }
 </style>
+
 </head>
 
-<body>
+<body onload="carregarEtiqueta()">
 
-<div class="botao-container">
-    <button class="botao" onclick="salvarPagina()">Salvar como</button>
-</div>
+<button id="btnImprimir" onclick="window.print()">
+    Imprimir
+</button>
 
-<div class="titulo">
-    RELATÓRIO ORDEM DE PRODUÇÃO
-</div>
+<div class="etiqueta">
 
-<div class="box">
-    <div class="flex">
-        <div><span class="label">Ordem:</span> <span id="ordem"></span></div>
-        <div><span class="label">Status:</span> <span id="status"></span></div>
-        <div><span class="label">Data:</span> <span id="data"></span></div>
-        <div><span class="label">Semana:</span> <span id="semana"></span></div>
-    </div>
+    <div class="empresa" id="empresa"></div>
 
-    <div class="flex">
-        <div><span class="label">PA:</span> <span id="pa"></span></div>
-        <div><span class="label">Código:</span> <span id="codigo"></span></div>
-        <div><span class="label">Descrição:</span> <span id="descricao"></span></div>
-        <div><span class="label">Lote:</span> <span id="lote"></span></div>
-    </div>
-</div>
+    <p>
+        <strong>Código:</strong>
+        <span id="codigo"></span>
+    </p>
 
-<div class="box">
+    <p>
+        <strong>Descrição:</strong>
+        <span id="descricao"></span>
+    </p>
 
-<div class="label">Matérias-Primas Utilizadas</div>
+    <p class="linha-dupla">
+        <span>
+            <strong>Peso Líquido:</strong>
+            <span id="pesoliquido"></span>
+        </span>
 
-<table>
-<thead>
-<tr>
-<th>Código</th>
-<th>Complemento</th>
-<th>Qtd Fórmula</th>
-<th>Tolerância</th>
-<th>Qtd Add</th>
-<th>UC</th>
-<th>Cód PI</th>
-<th>Compl PI</th>
-<th>Lote</th>
-<th>Qtd PI</th>
-<th>CMV</th>
-<th>Custo</th>
-<th>Saldo</th>
-</tr>
-</thead>
+        <span>
+            <strong>Tara:</strong>
+            <span id="tara"></span>
+        </span>
+    </p>
 
-<tbody id="tabelaItens"></tbody>
+    <p>
+        <strong>Lote:</strong>
+        <span id="lote"></span>
+    </p>
 
-</table>
+    <p>
+        <strong>OP:</strong>
+        <span id="op"></span>
+    </p>
+    <p>
+        <strong>Localização:</strong>
+        <span id="localizacao"></span>
+    </p>
 
-<div class="total">
-    Custo_Formula: <span id="custo_formula"></span><br>
-    Total_MP: <span id="total_mp"></span><br>
-    Data_Fabricacao: <span id="data_fabricacao"></span><br>
-    Empresa: <span id="empresa"></span><br>
-    Usuario: <span id="usuario"></span>
-</div>
+    <p class="data-impressao">
+        Impressão:
+        <span id="dataHora"></span>
+    </p>
+
+    <img id="qrcode" src="" alt="QR Code">
 
 </div>
 
 <script>
+    function carregarEtiqueta() {
 
-function getParametro(nome) {
-    const params = new URLSearchParams(window.location.search);
-    return params.get(nome);
-}
+        const params = new URLSearchParams(window.location.search);
 
-function salvarPagina() {
-    const conteudo = document.documentElement.outerHTML;
-    const blob = new Blob([conteudo], { type: "text/html" });
-    const url = URL.createObjectURL(blob);
+        document.getElementById("empresa").innerText =
+            params.get("empresa") || "";
 
-    const ordem = document.getElementById("ordem").innerText || "Relatorio";
+        document.getElementById("codigo").innerText =
+            params.get("codigo") || "";
 
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "Relatorio_OP_" + ordem + ".html";
-    a.click();
+        document.getElementById("descricao").innerText =
+            params.get("descricao") || "";
 
-    URL.revokeObjectURL(url);
-}
+        document.getElementById("pesoliquido").innerText =
+            params.get("pesoliquido") || "";
 
-let dadosParam = getParametro("dados");
+        document.getElementById("tara").innerText =
+            params.get("tara") || "";
 
-if (dadosParam) {
+        document.getElementById("lote").innerText =
+            params.get("lote") || "";
 
-    try {
+        document.getElementById("op").innerText =
+            params.get("op") || "";
+        
+        document.getElementById("localizacao").innerText =
+            params.get("localizacao") || "";
+        
+        const agora = new Date();
 
-        let dados = JSON.parse(dadosParam);
-        let registro = dados[0];
-        let cab = registro.Cabecalho;
+        document.getElementById("dataHora").innerText =
+            agora.toLocaleString("pt-BR", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit"
+            });
 
-        document.getElementById("ordem").innerText = cab.Ordem ?? "";
-        document.getElementById("status").innerText = cab.Status ?? "";
-        document.getElementById("data").innerText = cab.Data ?? "";
-        document.getElementById("semana").innerText = cab.Semana ?? "";
-        document.getElementById("pa").innerText = cab.PA ?? "";
-        document.getElementById("codigo").innerText = cab.Codigo ?? "";
-        document.getElementById("descricao").innerText = cab.Descricao ?? "";
-        document.getElementById("lote").innerText = cab.Lote ?? "";
-        document.getElementById("custo_formula").innerText = cab.Custo_Formula ?? "";
-        document.getElementById("total_mp").innerText = cab.Total_MP ?? "";
-        document.getElementById("data_fabricacao").innerText = cab.Data_Fabricacao ?? "";
-        document.getElementById("empresa").innerText = cab.Empresa ?? "";
-        document.getElementById("usuario").innerText = cab.Usuario ?? "";
+        const qr = params.get("qr");
 
-        let tabela = document.getElementById("tabelaItens");
-        tabela.innerHTML = "";
-
-        registro.Itens.forEach(item => {
-
-            if (item.Codigo && item.UCs && item.UCs.length > 0) {
-
-                let totalLinhas = item.UCs.length;
-
-                item.UCs.forEach((uc, index) => {
-
-                    let linha = "<tr>";
-
-                    if (index === 0) {
-                        linha += `
-                            <td rowspan="${totalLinhas}">${item.Codigo ?? ""}</td>
-                            <td rowspan="${totalLinhas}">${item.Complemento ?? ""}</td>
-                            <td rowspan="${totalLinhas}">${item.QtdFormula ?? ""}</td>
-                            <td rowspan="${totalLinhas}">${item.Tolerancia ?? ""}</td>
-                        `;
-                    }
-
-                    linha += `
-                        <td>${uc.Quantidade ?? ""}</td>
-                        <td>${uc.UC ?? ""}</td>
-                        <td>${uc.CodigoPI ?? ""}</td>
-                        <td>${uc.Complemento ?? ""}</td>
-                        <td>${uc.Lote ?? ""}</td>
-                        <td>${uc.Quantidade ?? ""}</td>
-                        <td>${uc.CMV ?? ""}</td>
-                        <td>${uc.Custo ?? ""}</td>
-                        <td>${uc.Saldo ?? ""}</td>
-                    </tr>
-                    `;
-
-                    tabela.innerHTML += linha;
-                });
-            }
-        });
-
-    } catch (erro) {
-        console.error("Erro ao ler JSON:", erro);
+        if (qr) {
+            document.getElementById("qrcode").src =
+                decodeURIComponent(qr);
+        }
     }
-}
-
 </script>
-
-</body>
-</html>
-
-
+    
 </body>
 </html>
