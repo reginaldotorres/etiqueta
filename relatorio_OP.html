@@ -1,104 +1,85 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relatório de RNC</title>
+<style>
+    @page {
+        size: 80mm 60mm;
+        margin: 0;
+    }
 
-    <style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        padding: 2mm;
+        width: 80mm;
+        height: 60mm;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 10pt;
+        background: white;
+    }
+
+    .container {
+        width: 76mm;
+        height: 56mm;
+        border: 1px solid #000;
+        padding: 3mm;
+        overflow: hidden;
+    }
+
+    .titulo {
+        text-align: center;
+        font-size: 14pt;
+        font-weight: bold;
+        border-bottom: 1px solid #000;
+        padding-bottom: 2mm;
+        margin-bottom: 2mm;
+    }
+
+    .campo {
+        margin-bottom: 2mm;
+        line-height: 1.2;
+    }
+
+    .label {
+        font-weight: bold;
+    }
+
+    .valor {
+        word-break: break-word;
+    }
+
+    .observacao {
+        border: 1px solid #000;
+        padding: 2mm;
+        height: 18mm;
+        overflow: hidden;
+        font-size: 9pt;
+    }
+
+    .rodape {
+        margin-top: 2mm;
+        border-top: 1px solid #000;
+        padding-top: 1mm;
+        font-size: 8pt;
+    }
+
+    @media print {
         body {
-            font-family: Arial, Helvetica, sans-serif;
             margin: 0;
-            padding: 20px;
-            background: #f4f4f4;
+            padding: 0;
         }
 
         .container {
-            max-width: 800px;
-            margin: auto;
-            background: #ffffff;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,.15);
+            border: 1px solid #000;
         }
-
-        .empresa {
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 25px;
-            border-bottom: 2px solid #000;
-            padding-bottom: 10px;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .campo {
-            margin-bottom: 15px;
-        }
-
-        .label {
-            font-weight: bold;
-        }
-
-        .valor {
-            display: inline-block;
-            margin-left: 5px;
-            word-break: break-word;
-        }
-
-        .observacao {
-            min-height: 120px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-            margin-top: 5px;
-            background: #fafafa;
-        }
-
-        .rodape {
-            margin-top: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 20px;
-        }
-
-        .data-impressao {
-            font-size: 12px;
-            color: #666;
-        }
-
-        #qrcode {
-            width: 140px;
-            height: 140px;
-            border: 1px solid #ddd;
-        }
-
-        @media print {
-            body {
-                background: white;
-            }
-
-            .container {
-                box-shadow: none;
-                border: none;
-            }
-        }
-    </style>
-</head>
-<body>
+    }
+</style>
 
 <div class="container">
 
-    <div class="empresa">
-        F4 Armazéns Gerais e Logística
+    <div class="titulo">
+        RNC
     </div>
-
-    <h1>Relatório de RNC</h1>
 
     <div class="campo">
         <span class="label">Lote:</span>
@@ -121,44 +102,7 @@
     </div>
 
     <div class="rodape">
-        <div>
-            <div class="data-impressao">
-                Impressão: <span id="dataHora"></span>
-            </div>
-        </div>
-
-        <div>
-            <img id="qrcode" alt="QR Code">
-        </div>
+        Impressão: <span id="dataHora"></span>
     </div>
 
 </div>
-
-<script>
-    const params = new URLSearchParams(window.location.search);
-
-    const lote = params.get("lote") || "";
-    const rnc = params.get("rnc") || "";
-    const observacao = params.get("observacao") || "";
-    const usuario = params.get("usuario") || "";
-
-    document.getElementById("lote").textContent = lote;
-    document.getElementById("rnc").textContent = rnc;
-    document.getElementById("observacao").textContent = observacao;
-    document.getElementById("usuario").textContent = usuario;
-
-    document.getElementById("dataHora").textContent =
-        new Date().toLocaleString("pt-BR");
-
-    const textoQR =
-        "Lote: " + lote +
-        "\nRNC: " + rnc +
-        "\nUsuário: " + usuario;
-
-    document.getElementById("qrcode").src =
-        "https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=" +
-        encodeURIComponent(textoQR);
-</script>
-
-</body>
-</html>
