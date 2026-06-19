@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Etiqueta RNC</title>
+<title>Alerta de Desvio</title>
 
 <style>
     @page {
-        size: 75mm 60mm;
+        size: 80mm 60mm;
         margin: 0;
     }
 
@@ -21,8 +21,9 @@
         width: 80mm;
         height: 60mm;
         font-family: Arial, Helvetica, sans-serif;
-        background: #fff;
-        color: #000;
+        background: white;
+        color: black;
+        overflow: hidden;
     }
 
     .container {
@@ -34,7 +35,7 @@
 
     .titulo {
         text-align: center;
-        font-size: 13pt;
+        font-size: 14pt;
         font-weight: bold;
         margin-bottom: 3mm;
     }
@@ -42,23 +43,28 @@
     .cabecalho {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        gap: 4mm;
         margin-bottom: 3mm;
-        font-size: 9pt;
+        font-size: 8.5pt;
     }
 
     .campo {
-        font-size: 9pt;
+        flex: 1;
     }
 
     .label {
         font-weight: bold;
     }
 
+    .observacao-titulo {
+        font-size: 8.5pt;
+        font-weight: bold;
+        margin-bottom: 1mm;
+    }
+
     .observacao {
         flex: 1;
-        margin-top: 2mm;
-        font-size: 9pt;
+        font-size: 8.5pt;
         line-height: 1.2;
         white-space: pre-wrap;
         word-break: break-word;
@@ -90,6 +96,7 @@
     </div>
 
     <div class="cabecalho">
+
         <div class="campo">
             <span class="label">Lote:</span>
             <span id="lote"></span>
@@ -99,10 +106,16 @@
             <span class="label">RNC:</span>
             <span id="rnc"></span>
         </div>
+
+        <div class="campo">
+            <span class="label">Qtd:</span>
+            <span id="quantidade"></span>
+        </div>
+
     </div>
 
-    <div class="campo">
-        <span class="label">Observação:</span>
+    <div class="observacao-titulo">
+        Observação:
     </div>
 
     <div class="observacao" id="observacao"></div>
@@ -122,13 +135,15 @@
     document.getElementById("rnc").textContent =
         params.get("rnc") || "";
 
+    document.getElementById("quantidade").textContent =
+        params.get("quantidade") || "";
+
     document.getElementById("observacao").textContent =
         params.get("observacao") || "";
 
     document.getElementById("dataHora").textContent =
         new Date().toLocaleString("pt-BR");
 
-    // Abre a impressão automaticamente
     window.onload = function () {
         setTimeout(() => window.print(), 300);
     };
@@ -136,3 +151,4 @@
 
 </body>
 </html>
+
