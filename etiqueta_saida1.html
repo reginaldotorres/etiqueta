@@ -1,254 +1,190 @@
+```html
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>Etiqueta</title>
+  <meta charset="utf-8">
+  <title>Etiqueta</title>
 
-<style>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 10px;
+    }
 
-body{
-    font-family: Arial, sans-serif;
-    margin:0;
-    padding:0;
-}
+    .etiqueta {
+      width: 80mm;
+      height: 55mm;
+      padding: 6px;
+      position: relative;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+    }
 
-/* BOTÃO */
-#btnImprimir{
-    margin:15px;
-    padding:8px 18px;
-    font-size:16px;
-    cursor:pointer;
-}
+    h3 {
+      text-align: center;
+      margin: 0 0 10px 0;
+      font-weight: bold;
+      font-size: 14px;
+    }
 
-/* ETIQUETA */
-.etiqueta{
+    p {
+      margin: 4px 0;
+      font-size: 12px;
+      line-height: 1.0;
+    }
 
-    width:200mm;   /* 20 cm */
-    height:100mm;  /* 10 cm */
+    img#qrcode {
+      position: absolute;
+      bottom: 6px;
+      right: 6px;
+      width: 90px;
+      height: 90px;
+    }
 
-    padding:10mm;
+    #btnImprimir {
+      margin-bottom: 15px;
+      padding: 6px 14px;
+      font-size: 14px;
+      cursor: pointer;
+    }
 
-    box-sizing:border-box;
+    @media print {
 
-    display:flex;
-    flex-direction:column;
+      #btnImprimir {
+        display: none;
+      }
 
-    position:relative;
-}
+      body {
+        margin: 0;
+        padding: 0;
+      }
 
-/* TÍTULO */
-h3{
-    text-align:center;
-    margin:0 0 12px 0;
-    font-size:26px;
-    font-weight:bold;
-}
-
-/* LINHAS */
-p{
-
-    margin:6px 0;
-
-    font-size:18px;
-
-    line-height:1.2;
-}
-
-/* QR CODE */
-
-#qrcode{
-
-    position:absolute;
-
-    bottom:10mm;
-
-    right:10mm;
-
-    width:130px;
-
-    height:130px;
-
-}
-
-/* IMPRESSÃO */
-
-@media print{
-
-#btnImprimir{
-display:none;
-}
-
-body{
-margin:0;
-}
-
-@page{
-size:200mm 100mm; /* 20 x 10 cm */
-margin:0;
-}
-
-}
-
-</style>
-
+      .etiqueta {
+        margin: 0;
+      }
+    }
+  </style>
 </head>
-
 
 <body onload="carregarEtiqueta()">
 
-<button id="btnImprimir" onclick="window.print()">Imprimir</button>
+  <button id="btnImprimir" onclick="window.print()">Imprimir</button>
 
+  <div class="etiqueta">
 
-<div class="etiqueta">
+    <h3>Núcleo Ind. e Com. de Ferroligas LTDA</h3>
 
-<h3>Núcleo Ind. e Com. de Ferroligas LTDA</h3>
+    <p>
+      <strong>PV:</strong> <span id="pv"></span>
+      &nbsp;&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;&nbsp;
+      <strong>OC:</strong> <span id="oc"></span>
+      &nbsp;&nbsp;&nbsp;<strong>|</strong>&nbsp;&nbsp;&nbsp;
+      <strong>DN:</strong> <span id="dn"></span>
+    </p>
 
-<p>
-<strong>PV:</strong>
-<span id="pv"></span>
+    <p>
+      <strong>Parceiro:</strong>
+      <span id="cod_parceiro"></span>
+      <strong>&nbsp;&nbsp;-&nbsp;&nbsp;</strong>
+      <span id="parceiro"></span>
+    </p>
 
-&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+    <p>
+      <strong>Código:</strong>
+      <span id="codigo"></span>
+      <strong>&nbsp;&nbsp;-&nbsp;&nbsp;</strong>
+      <span id="descricao"></span>
+    </p>
 
-<strong>OC:</strong>
-<span id="oc"></span>
+    <p>
+      <strong>Gran.:</strong>
+      <span id="granulometria"></span>
+    </p>
 
-&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+    <p>
+      <strong>Peso Bruto:</strong>
+      <span id="pesobruto"></span>&nbsp;&nbsp;&nbsp;KG
+    </p>
 
-<strong>DN:</strong>
-<span id="dn"></span>
-</p>
+    <p>
+      <strong>Peso Líquido:</strong>
+      <span id="pesoliquido"></span>&nbsp;&nbsp;&nbsp;KG
+    </p>
 
+    <p>
+      <strong>Lote:</strong>
+      <span id="lote"></span>
+    </p>
 
-<p>
+    <p>
+      <strong>Fabricação:</strong>
+      <span id="pvdata"></span>
+    </p>
 
-<strong>Parceiro:</strong>
+    <p>
+      <strong>Validade:</strong> Indeterminada
+    </p>
 
-<span id="cod_parceiro"></span>
+    <img id="qrcode" src="" alt="QR Code">
 
-<strong>&nbsp;-&nbsp;</strong>
+  </div>
 
-<span id="parceiro"></span>
+  <script>
+    function carregarEtiqueta() {
 
-</p>
+      const params = new URLSearchParams(window.location.search);
 
+      document.getElementById("pv").innerText =
+        params.get("pv") || "";
 
-<p>
+      document.getElementById("oc").innerText =
+        params.get("oc") || "";
 
-<strong>Código:</strong>
+      document.getElementById("granulometria").innerText =
+        params.get("granulometria") || "";
 
-<span id="codigo"></span>
+      document.getElementById("pvdata").innerText =
+        params.get("pvdata") || "";
 
-<strong>&nbsp;-&nbsp;</strong>
+      document.getElementById("cod_parceiro").innerText =
+        params.get("cod_parceiro") || "";
 
-<span id="descricao"></span>
+      document.getElementById("parceiro").innerText =
+        params.get("parceiro") || "";
 
-</p>
+      document.getElementById("codigo").innerText =
+        params.get("codigo") || "";
 
+      document.getElementById("descricao").innerText =
+        params.get("descricao") || "";
 
-<p>
+      document.getElementById("pesobruto").innerText =
+        params.get("pesobruto") || "";
 
-<strong>Granulometria:</strong>
+      document.getElementById("pesoliquido").innerText =
+        params.get("pesoliquido") || "";
 
-<span id="granulometria"></span>
+      document.getElementById("lote").innerText =
+        params.get("lote") || "";
 
-</p>
+      document.getElementById("dn").innerText =
+        params.get("dn") || "";
 
+      const qr = params.get("qr");
 
-<p>
+      if (qr) {
+        document.getElementById("qrcode").src =
+          decodeURIComponent(qr);
+      }
+    }
+  </script>
 
-<strong>Peso Bruto:</strong>
+</body>
+</html>
+```
 
-<span id="pesobruto"></span>
-
-&nbsp;KG
-
-</p>
-
-
-<p>
-
-<strong>Peso Líquido:</strong>
-
-<span id="pesoliquido"></span>
-
-&nbsp;KG
-
-</p>
-
-
-<p>
-
-<strong>Lote:</strong>
-
-<span id="lote"></span>
-
-</p>
-
-
-<p>
-
-<strong>Fabricação:</strong>
-
-<span id="pvdata"></span>
-
-</p>
-
-
-<p>
-
-<strong>Validade:</strong>
-
-Indeterminada
-
-</p>
-
-
-<img id="qrcode" src="" alt="QR Code">
-
-
-</div>
-
-
-
-<script>
-
-function carregarEtiqueta(){
-
-const params = new URLSearchParams(window.location.search);
-
-document.getElementById("pv").innerText = params.get("pv") || "";
-
-document.getElementById("oc").innerText = params.get("oc") || "";
-
-document.getElementById("dn").innerText = params.get("dn") || "";
-
-document.getElementById("granulometria").innerText = params.get("granulometria") || "";
-
-document.getElementById("pvdata").innerText = params.get("pvdata") || "";
-
-document.getElementById("cod_parceiro").innerText = params.get("cod_parceiro") || "";
-
-document.getElementById("parceiro").innerText = params.get("parceiro") || "";
-
-document.getElementById("codigo").innerText = params.get("codigo") || "";
-
-document.getElementById("descricao").innerText = params.get("descricao") || "";
-
-document.getElementById("pesobruto").innerText = params.get("pesobruto") || "";
-
-document.getElementById("pesoliquido").innerText = params.get("pesoliquido") || "";
-
-document.getElementById("lote").innerText = params.get("lote") || "";
-
-const qr = params.get("qr");
-
-if(qr){
-
-document.getElementById("qrcode").src = decodeURIComponent(qr);
-
-}
-
-}
 
 </script>
 
