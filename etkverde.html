@@ -5,28 +5,16 @@
 
   <meta charset="utf-8">
 
-
   <title>Etiqueta</title>
 
   <style>
 
     /* =========================================================
-       CONFIGURAÇÃO DA PÁGINA
+       CONFIGURAÇÃO BÁSICA
        ========================================================= */
-
-    @page {
-      size: 150mm 100mm;
-      margin: 0;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
 
     html,
     body {
-      width: 150mm;
-      height: 100mm;
       margin: 0;
       padding: 0;
     }
@@ -38,60 +26,14 @@
 
 
     /* =========================================================
-       BOTÃO
-       ========================================================= */
-
-    #btnImprimir {
-      margin: 10px;
-      padding: 8px 16px;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-
-    /* =========================================================
-       ETIQUETA
+       ÁREA DA ETIQUETA
        ========================================================= */
 
     .etiqueta {
       position: relative;
 
-      width: 150mm;
-      height: 100mm;
-
       margin: 0;
       padding: 0;
-
-      overflow: hidden;
-
-      box-sizing: border-box;
-    }
-
-
-    /* =========================================================
-       TÍTULO
-       ========================================================= */
-
-    h3 {
-      position: absolute;
-
-      left: 0;
-      top: 2mm;
-
-      width: 150mm;
-
-      margin: 0;
-      padding: 0;
-
-      text-align: center;
-
-      font-size: 15px;
-      line-height: 1.1;
-
-      font-weight: bold;
-
-      white-space: nowrap;
     }
 
 
@@ -103,10 +45,12 @@
       position: absolute;
 
       left: 90mm;
-      top: 15mm;
+      top: 5mm;
 
       margin: 0;
       padding: 0;
+
+      font-family: Arial, Helvetica, sans-serif;
 
       font-size: 5mm;
       line-height: 1;
@@ -123,39 +67,19 @@
 
 
     /* =========================================================
-       TEXTOS
+       BOTÃO
        ========================================================= */
 
-    p {
-      margin: 0.8mm 0;
-      padding: 0;
+    #btnImprimir {
+      margin: 10px;
 
-      font-size: 13px;
+      padding: 8px 16px;
 
-      line-height: 1.1;
+      font-size: 14px;
 
-      white-space: nowrap;
-    }
-
-    p strong {
       font-weight: bold;
-    }
 
-
-    /* =========================================================
-       QR CODE
-       ========================================================= */
-
-    #qrcode {
-      position: absolute;
-
-      right: 2mm;
-      bottom: 2mm;
-
-      width: 20mm;
-      height: 20mm;
-
-      object-fit: contain;
+      cursor: pointer;
     }
 
 
@@ -165,58 +89,8 @@
 
     @media print {
 
-      @page {
-        size: 150mm 100mm;
-        margin: 0;
-      }
-
-      html,
-      body {
-        width: 150mm;
-        height: 100mm;
-
-        margin: 0;
-        padding: 0;
-      }
-
       #btnImprimir {
         display: none;
-      }
-
-      .etiqueta {
-        position: relative;
-
-        width: 150mm;
-        height: 100mm;
-
-        margin: 0;
-        padding: 0;
-
-        page-break-before: avoid;
-        page-break-after: avoid;
-        page-break-inside: avoid;
-      }
-
-
-      /* =======================================================
-         PV / OC - IMPRESSÃO
-         ======================================================= */
-
-      #pvoc {
-        position: absolute;
-
-        left: 90mm;
-        top: 5mm;
-
-        margin: 0;
-        padding: 0;
-
-        font-size: 5mm;
-        line-height: 1;
-
-        font-weight: bold;
-
-        white-space: nowrap;
       }
 
     }
@@ -248,17 +122,6 @@
 
   <div class="etiqueta">
 
-
-    <!-- =======================================================
-         TÍTULO
-         ======================================================= -->
-
-
-
-    <!-- =======================================================
-         PV / OC
-         ======================================================= -->
-
     <div id="pvoc">
 
       <div>
@@ -272,109 +135,6 @@
       </div>
 
     </div>
-
-
-    <!-- =======================================================
-         PARCEIRO
-         ======================================================= -->
-
-    <p>
-      <strong>Parceiro:</strong>
-      <span id="cod_parceiro"></span>
-
-      &nbsp;-&nbsp;
-
-      <span id="parceiro"></span>
-    </p>
-
-
-    <!-- =======================================================
-         PRODUTO
-         ======================================================= -->
-
-    <p>
-      <strong>Código:</strong>
-      <span id="codigo"></span>
-
-      &nbsp;-&nbsp;
-
-      <span id="descricao"></span>
-    </p>
-
-
-    <!-- =======================================================
-         GRANULOMETRIA
-         ======================================================= -->
-
-    <p>
-      <strong>Gran.:</strong>
-      <span id="granulometria"></span>
-    </p>
-
-
-    <!-- =======================================================
-         PESO BRUTO
-         ======================================================= -->
-
-    <p>
-      <strong>Peso Bruto:</strong>
-      <span id="pesobruto"></span>
-
-      &nbsp;KG
-    </p>
-
-
-    <!-- =======================================================
-         PESO LÍQUIDO
-         ======================================================= -->
-
-    <p>
-      <strong>Peso Líquido:</strong>
-      <span id="pesoliquido"></span>
-
-      &nbsp;KG
-    </p>
-
-
-    <!-- =======================================================
-         LOTE
-         ======================================================= -->
-
-    <p>
-      <strong>Lote:</strong>
-      <span id="lote"></span>
-    </p>
-
-
-    <!-- =======================================================
-         FABRICAÇÃO
-         ======================================================= -->
-
-    <p>
-      <strong>Fabricação:</strong>
-      <span id="pvdata"></span>
-    </p>
-
-
-    <!-- =======================================================
-         VALIDADE
-         ======================================================= -->
-
-    <p>
-      <strong>Validade:</strong>
-      Indeterminada
-    </p>
-
-
-    <!-- =======================================================
-         QR CODE
-         ======================================================= -->
-
-    <img
-      id="qrcode"
-      src=""
-      alt="QR Code">
-
 
   </div>
 
@@ -391,100 +151,12 @@
         new URLSearchParams(window.location.search);
 
 
-      /* =======================================================
-         PV
-         ======================================================= */
-
       document.getElementById("pv").innerText =
         params.get("pv") || "";
 
 
-      /* =======================================================
-         OC
-         ======================================================= */
-
       document.getElementById("oc").innerText =
         params.get("oc") || "";
-
-
-      /* =======================================================
-         DN
-         ======================================================= */
-
-      document.getElementById("dn").innerText =
-        params.get("dn") || "";
-
-
-      /* =======================================================
-         PARCEIRO
-         ======================================================= */
-
-      document.getElementById("cod_parceiro").innerText =
-        params.get("cod_parceiro") || "";
-
-      document.getElementById("parceiro").innerText =
-        params.get("parceiro") || "";
-
-
-      /* =======================================================
-         PRODUTO
-         ======================================================= */
-
-      document.getElementById("codigo").innerText =
-        params.get("codigo") || "";
-
-      document.getElementById("descricao").innerText =
-        params.get("descricao") || "";
-
-
-      /* =======================================================
-         GRANULOMETRIA
-         ======================================================= */
-
-      document.getElementById("granulometria").innerText =
-        params.get("granulometria") || "";
-
-
-      /* =======================================================
-         PESOS
-         ======================================================= */
-
-      document.getElementById("pesobruto").innerText =
-        params.get("pesobruto") || "";
-
-      document.getElementById("pesoliquido").innerText =
-        params.get("pesoliquido") || "";
-
-
-      /* =======================================================
-         LOTE
-         ======================================================= */
-
-      document.getElementById("lote").innerText =
-        params.get("lote") || "";
-
-
-      /* =======================================================
-         DATA
-         ======================================================= */
-
-      document.getElementById("pvdata").innerText =
-        params.get("pvdata") || "";
-
-
-      /* =======================================================
-         QR CODE
-         ======================================================= */
-
-      const qr =
-        params.get("qr");
-
-      if (qr) {
-
-        document.getElementById("qrcode").src =
-          decodeURIComponent(qr);
-
-      }
 
     }
 
