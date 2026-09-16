@@ -5,193 +5,225 @@
 
   <meta charset="utf-8">
 
-  <meta name="viewport" content="width=80mm, initial-scale=1.0">
+  <meta name="viewport" content="width=150mm, initial-scale=1.0">
 
   <title>Etiqueta</title>
 
   <style>
 
-  /* =========================================================
-     CONFIGURAÇÃO DA PÁGINA
-     ========================================================= */
-
-  @page {
-    size: 150mm 100mm;
-    margin: 0;
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-
-  html,
-  body {
-    width: 150mm;
-    height: 100mm;
-    margin: 0;
-    padding: 0;
-  }
-
-  body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: white;
-  }
-
-
-  /* =========================================================
-     BOTÃO
-     ========================================================= */
-
-  #btnImprimir {
-    margin: 10px;
-    padding: 8px 16px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-
-
-  /* =========================================================
-     ETIQUETA
-     ========================================================= */
-
-  .etiqueta {
-    width: 150mm;
-    height: 100mm;
-
-    margin: 0;
-    padding: 2mm;
-
-    position: relative;
-
-    overflow: hidden;
-
-    display: flex;
-    flex-direction: column;
-
-    box-sizing: border-box;
-  }
-
-   PV / OC
-   ========================================================= */
-
-#pvoc {
-  position: absolute;
-
-  left: 90mm;
-  top: 5mm;
-
-  font-size: 5mm;
-  line-height: 1.1;
-
-  font-weight: bold;
-
-  white-space: nowrap;
-}
-
-#pvoc div {
-  margin: 0;
-  padding: 0;
-}
-
-  /* =========================================================
-     TÍTULO
-     ========================================================= */
-
-  h3 {
-    width: 100%;
-
-    text-align: center;
-
-    margin: 0 0 2.5mm 0;
-    padding: 0;
-
-    font-size: 15px;
-
-    line-height: 1.1;
-
-    font-weight: bold;
-
-    white-space: nowrap;
-  }
-
-
-  /* =========================================================
-     TEXTOS
-     ========================================================= */
-
-  p {
-    margin: 0.8mm 0;
-    padding: 0;
-
-    font-size: 13px;
-
-    line-height: 1.1;
-
-    white-space: nowrap;
-  }
-
-  p strong {
-    font-weight: bold;
-  }
-
-
-  /* =========================================================
-     QR CODE
-     ========================================================= */
-
-  #qrcode {
-    position: absolute;
-
-    right: 2mm;
-    bottom: 2mm;
-
-    width: 20mm;
-    height: 20mm;
-
-    object-fit: contain;
-  }
-
-
-  /* =========================================================
-     IMPRESSÃO
-     ========================================================= */
-
-  @media print {
+    /* =========================================================
+       CONFIGURAÇÃO DA PÁGINA
+       ========================================================= */
 
     @page {
       size: 150mm 100mm;
       margin: 0;
     }
 
+    * {
+      box-sizing: border-box;
+    }
+
     html,
     body {
+      width: 150mm;
+      height: 100mm;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: white;
+    }
+
+
+    /* =========================================================
+       BOTÃO
+       ========================================================= */
+
+    #btnImprimir {
+      margin: 10px;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+
+    /* =========================================================
+       ETIQUETA
+       ========================================================= */
+
+    .etiqueta {
+      position: relative;
+
       width: 150mm;
       height: 100mm;
 
       margin: 0;
       padding: 0;
+
+      overflow: hidden;
+
+      box-sizing: border-box;
     }
 
-    #btnImprimir {
-      display: none;
-    }
 
-    .etiqueta {
+    /* =========================================================
+       TÍTULO
+       ========================================================= */
+
+    h3 {
+      position: absolute;
+
+      left: 0;
+      top: 2mm;
+
       width: 150mm;
-      height: 100mm;
 
       margin: 0;
-      padding: 2mm;
+      padding: 0;
 
-      page-break-before: avoid;
-      page-break-after: avoid;
-      page-break-inside: avoid;
+      text-align: center;
+
+      font-size: 15px;
+      line-height: 1.1;
+
+      font-weight: bold;
+
+      white-space: nowrap;
     }
 
-  }
 
-</style>
+    /* =========================================================
+       PV / OC
+       ========================================================= */
+
+    #pvoc {
+      position: absolute;
+
+      left: 90mm;
+      top: 5mm;
+
+      margin: 0;
+      padding: 0;
+
+      font-size: 5mm;
+      line-height: 1;
+
+      font-weight: bold;
+
+      white-space: nowrap;
+    }
+
+    #pvoc div {
+      margin: 0;
+      padding: 0;
+    }
+
+
+    /* =========================================================
+       TEXTOS
+       ========================================================= */
+
+    p {
+      margin: 0.8mm 0;
+      padding: 0;
+
+      font-size: 13px;
+
+      line-height: 1.1;
+
+      white-space: nowrap;
+    }
+
+    p strong {
+      font-weight: bold;
+    }
+
+
+    /* =========================================================
+       QR CODE
+       ========================================================= */
+
+    #qrcode {
+      position: absolute;
+
+      right: 2mm;
+      bottom: 2mm;
+
+      width: 20mm;
+      height: 20mm;
+
+      object-fit: contain;
+    }
+
+
+    /* =========================================================
+       IMPRESSÃO
+       ========================================================= */
+
+    @media print {
+
+      @page {
+        size: 150mm 100mm;
+        margin: 0;
+      }
+
+      html,
+      body {
+        width: 150mm;
+        height: 100mm;
+
+        margin: 0;
+        padding: 0;
+      }
+
+      #btnImprimir {
+        display: none;
+      }
+
+      .etiqueta {
+        position: relative;
+
+        width: 150mm;
+        height: 100mm;
+
+        margin: 0;
+        padding: 0;
+
+        page-break-before: avoid;
+        page-break-after: avoid;
+        page-break-inside: avoid;
+      }
+
+
+      /* =======================================================
+         PV / OC - IMPRESSÃO
+         ======================================================= */
+
+      #pvoc {
+        position: absolute;
+
+        left: 90mm;
+        top: 5mm;
+
+        margin: 0;
+        padding: 0;
+
+        font-size: 5mm;
+        line-height: 1;
+
+        font-weight: bold;
+
+        white-space: nowrap;
+      }
+
+    }
+
+  </style>
+
 </head>
 
 
@@ -218,26 +250,37 @@
   <div class="etiqueta">
 
 
+    <!-- =======================================================
+         TÍTULO
+         ======================================================= -->
+
     <h3>
       Núcleo Ind. e Com. de Ferroligas LTDA
     </h3>
 
 
-   
-<div id="pvoc">
-  <div>
-    <strong>PV:</strong>
-    <span id="pv"></span>
-  </div>
+    <!-- =======================================================
+         PV / OC
+         ======================================================= -->
 
-  <div>
-    <strong>OC:</strong>
-    <span id="oc"></span>
-  </div>
-</div>
+    <div id="pvoc">
+
+      <div>
+        <strong>PV:</strong>
+        <span id="pv"></span>
+      </div>
+
+      <div>
+        <strong>OC:</strong>
+        <span id="oc"></span>
+      </div>
+
+    </div>
 
 
-
+    <!-- =======================================================
+         PARCEIRO
+         ======================================================= -->
 
     <p>
       <strong>Parceiro:</strong>
@@ -249,6 +292,10 @@
     </p>
 
 
+    <!-- =======================================================
+         PRODUTO
+         ======================================================= -->
+
     <p>
       <strong>Código:</strong>
       <span id="codigo"></span>
@@ -259,25 +306,43 @@
     </p>
 
 
+    <!-- =======================================================
+         GRANULOMETRIA
+         ======================================================= -->
+
     <p>
       <strong>Gran.:</strong>
       <span id="granulometria"></span>
     </p>
 
 
+    <!-- =======================================================
+         PESO BRUTO
+         ======================================================= -->
+
     <p>
       <strong>Peso Bruto:</strong>
       <span id="pesobruto"></span>
+
       &nbsp;KG
     </p>
 
+
+    <!-- =======================================================
+         PESO LÍQUIDO
+         ======================================================= -->
 
     <p>
       <strong>Peso Líquido:</strong>
       <span id="pesoliquido"></span>
+
       &nbsp;KG
     </p>
 
+
+    <!-- =======================================================
+         LOTE
+         ======================================================= -->
 
     <p>
       <strong>Lote:</strong>
@@ -285,11 +350,19 @@
     </p>
 
 
+    <!-- =======================================================
+         FABRICAÇÃO
+         ======================================================= -->
+
     <p>
       <strong>Fabricação:</strong>
       <span id="pvdata"></span>
     </p>
 
+
+    <!-- =======================================================
+         VALIDADE
+         ======================================================= -->
 
     <p>
       <strong>Validade:</strong>
@@ -297,7 +370,9 @@
     </p>
 
 
-    <!-- QR CODE -->
+    <!-- =======================================================
+         QR CODE
+         ======================================================= -->
 
     <img
       id="qrcode"
@@ -320,79 +395,93 @@
         new URLSearchParams(window.location.search);
 
 
-      /* PV */
+      /* =======================================================
+         PV
+         ======================================================= */
 
       document.getElementById("pv").innerText =
         params.get("pv") || "";
 
 
-      /* OC */
+      /* =======================================================
+         OC
+         ======================================================= */
 
       document.getElementById("oc").innerText =
         params.get("oc") || "";
 
 
-      /* DN */
+      /* =======================================================
+         DN
+         ======================================================= */
 
       document.getElementById("dn").innerText =
         params.get("dn") || "";
 
 
-      /* PARCEIRO */
+      /* =======================================================
+         PARCEIRO
+         ======================================================= */
 
       document.getElementById("cod_parceiro").innerText =
         params.get("cod_parceiro") || "";
-
 
       document.getElementById("parceiro").innerText =
         params.get("parceiro") || "";
 
 
-      /* PRODUTO */
+      /* =======================================================
+         PRODUTO
+         ======================================================= */
 
       document.getElementById("codigo").innerText =
         params.get("codigo") || "";
-
 
       document.getElementById("descricao").innerText =
         params.get("descricao") || "";
 
 
-      /* GRANULOMETRIA */
+      /* =======================================================
+         GRANULOMETRIA
+         ======================================================= */
 
       document.getElementById("granulometria").innerText =
         params.get("granulometria") || "";
 
 
-      /* PESOS */
+      /* =======================================================
+         PESOS
+         ======================================================= */
 
       document.getElementById("pesobruto").innerText =
         params.get("pesobruto") || "";
-
 
       document.getElementById("pesoliquido").innerText =
         params.get("pesoliquido") || "";
 
 
-      /* LOTE */
+      /* =======================================================
+         LOTE
+         ======================================================= */
 
       document.getElementById("lote").innerText =
         params.get("lote") || "";
 
 
-      /* DATA */
+      /* =======================================================
+         DATA
+         ======================================================= */
 
       document.getElementById("pvdata").innerText =
         params.get("pvdata") || "";
 
 
-      /* =====================================================
+      /* =======================================================
          QR CODE
-         ===================================================== */
+         ======================================================= */
 
       const qr =
         params.get("qr");
-
 
       if (qr) {
 
@@ -408,7 +497,4 @@
 
 </body>
 
-</html>
-
-</body>
 </html>
