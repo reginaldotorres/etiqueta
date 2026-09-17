@@ -16,7 +16,7 @@
      ========================================================= */
 
   @page {
-    size: 150mm 100mm;
+    size: 80mm 65mm;
     margin: 0;
   }
 
@@ -26,8 +26,8 @@
 
   html,
   body {
-    width: 150mm;
-    height: 100mm;
+    width: 80mm;
+    height: 65mm;
     margin: 0;
     padding: 0;
   }
@@ -56,8 +56,8 @@
      ========================================================= */
 
   .etiqueta {
-    width: 150mm;
-    height: 100mm;
+    width: 80mm;
+    height: 65mm;
 
     margin: 0;
     padding: 2mm;
@@ -139,14 +139,14 @@
   @media print {
 
     @page {
-      size: 150mm 100mm;
+      size: 80mm 65mm;
       margin: 0;
     }
 
     html,
     body {
-      width: 150mm;
-      height: 100mm;
+      width: 80mm;
+      height: 65mm;
 
       margin: 0;
       padding: 0;
@@ -157,8 +157,8 @@
     }
 
     .etiqueta {
-      width: 150mm;
-      height: 100mm;
+      width: 80mm;
+      height: 65mm;
 
       margin: 0;
       padding: 2mm;
@@ -241,13 +241,6 @@
     <p>
       <strong>Gran.:</strong>
       <span id="granulometria"></span>
-    </p>
-
-
-    <p>
-      <strong>Peso Bruto:</strong>
-      <span id="pesobruto"></span>
-      &nbsp;KG
     </p>
 
 
@@ -345,10 +338,6 @@
 
       /* PESOS */
 
-      document.getElementById("pesobruto").innerText =
-        params.get("pesobruto") || "";
-
-
       document.getElementById("pesoliquido").innerText =
         params.get("pesoliquido") || "";
 
@@ -388,7 +377,3 @@
 </body>
 
 </html>
-
-</body>
-</html>
-
