@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -16,9 +17,10 @@
             box-sizing: border-box;
         }
 
-        body {
+        html, body {
             margin: 0;
             padding: 0;
+            width: 100mm;
             font-family: Arial, Helvetica, sans-serif;
             background: #fff;
         }
@@ -26,27 +28,29 @@
         .etiqueta {
             width: 100mm;
             height: 50mm;
-            padding: 3mm;
+            padding: 2mm 5mm;
             page-break-after: always;
             break-after: page;
 
             display: flex;
             flex-direction: column;
+            overflow: hidden;
         }
 
         .titulo {
             text-align: center;
-            font-size: 14pt;
+            font-size: 15pt;
             font-weight: bold;
-            margin-bottom: 3mm;
+            margin-bottom: 2mm;
         }
 
         .cabecalho {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 14pt;
-            margin-bottom: 3mm;
+            font-size: 12pt;
+            margin-bottom: 2mm;
+            width: 100%;
         }
 
         .label {
@@ -61,27 +65,31 @@
 
         .observacao {
             flex: 1;
+            width: 100%;
             font-size: 12pt;
-            line-height: 1.2;
+            line-height: 1.15;
             white-space: pre-wrap;
+            overflow-wrap: anywhere;
             word-break: break-word;
             overflow: hidden;
         }
 
         .rodape {
-            font-size: 12pt;
+            font-size: 9pt;
             color: #555;
             text-align: right;
-            margin-top: 2mm;
+            margin-top: 1mm;
         }
 
         @media print {
-            body {
+            html, body {
                 margin: 0;
+                padding: 0;
             }
 
             .etiqueta:last-child {
                 page-break-after: auto;
+                break-after: auto;
             }
         }
     </style>
@@ -111,39 +119,47 @@
 
         for (let i = 0; i < quantidade; i++) {
 
-            container.innerHTML += `
-                <div class="etiqueta">
+            const etiqueta = document.createElement("div");
+            etiqueta.className = "etiqueta";
 
-                    <div class="titulo">
-                        ALERTA DE DESVIO
-                    </div>
+            const titulo = document.createElement("div");
+            titulo.className = "titulo";
+            titulo.textContent = "ALERTA DE DESVIO";
 
-                    <div class="cabecalho">
-                        <div>
-                            <span class="label">Lote:</span>
-                            ${lote}
-                        </div>
+            const cabecalho = document.createElement("div");
+            cabecalho.className = "cabecalho";
 
-                        <div>
-                            <span class="label">RNC:</span>
-                            ${rnc}
-                        </div>
-                    </div>
+            const loteDiv = document.createElement("div");
+            loteDiv.innerHTML = '<span class="label">Lote:</span> ';
+            loteDiv.append(document.createTextNode(lote));
 
-                    <div class="obs-titulo">
-                        Observação:
-                    </div>
+            const rncDiv = document.createElement("div");
+            rncDiv.innerHTML = '<span class="label">RNC:</span> ';
+            rncDiv.append(document.createTextNode(rnc));
 
-                    <div class="observacao">
-                        ${observacao}
-                    </div>
+            cabecalho.append(loteDiv, rncDiv);
 
-                    <div class="rodape">
-                        Impressão: ${dataHora}
-                    </div>
+            const obsTitulo = document.createElement("div");
+            obsTitulo.className = "obs-titulo";
+            obsTitulo.textContent = "OBSERVAÇÃO:";
 
-                </div>
-            `;
+            const obs = document.createElement("div");
+            obs.className = "observacao";
+            obs.textContent = observacao;
+
+            const rodape = document.createElement("div");
+            rodape.className = "rodape";
+            rodape.textContent = "Impressão: " + dataHora;
+
+            etiqueta.append(
+                titulo,
+                cabecalho,
+                obsTitulo,
+                obs,
+                rodape
+            );
+
+            container.appendChild(etiqueta);
         }
 
         window.onload = function () {
@@ -153,5 +169,4 @@
     </script>
 
 </body>
-
 </html>
